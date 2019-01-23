@@ -105,6 +105,14 @@ SoftWire SWireL(PB6, PB7, SOFT_FAST);
 int koord_kaire[3];
 int koord_desine[3];
 
+int a10, a11, a12, a20, a21, a22, a23, a30, a32, a33, a34, a40, a43, a44;
+int a2x;
+int a2y;
+int a3x;
+int a3y;
+int a4x;
+int a4y;
+
 void setup() {
   Serial.begin(115200);
   SWireR.begin();
@@ -135,10 +143,21 @@ void loop() {
   Serial.print(koord_kaire[1]);
   Serial.print(" ");
   Serial.print(koord_kaire[2]);
-  Serial.print("Desine: ");
+  Serial.print(" Desine: ");
   Serial.print(koord_desine[0]);
   Serial.print(" ");
   Serial.print(koord_desine[1]);
   Serial.print(" ");
   Serial.println(koord_desine[2]);
+
+  a10 = (-2 * a2x * koord_kaire[0]) - (2 * a2y * koord_kaire[1]);
+  a11 = (2 * koord_kaire[0] ^ 2) + (2 * koord_kaire[1] ^ 2) + (2 * koord_kaire[2] ^ 2);
+  a12 = (-2 * koord_kaire[0] * koord_desine[0]) - (2 * koord_kaire[1] * koord_desine[1]) - (2 * koord_kaire[2] * koord_desine[2]);
+
+  a20 = (2 * a2x * koord_desine[0]) + (2 * a2y * koord_desine[1]);
+  a21 = a12;
+  a22 = (2 * koord_desine[0]^2) + (2 * koord_desine[1]^2) + (2 * koord_desine[2]^2);
+  
+  t1 = ((a12 * a20) - (a10 * a22)) / ((a11 * a22) - (a12 * a21));
+  t2 = ((a11 * a20) - (a10 * a21)) / ((a12 * a21) - (a11 * a22));
 }
