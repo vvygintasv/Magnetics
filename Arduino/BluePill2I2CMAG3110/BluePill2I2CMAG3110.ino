@@ -105,6 +105,7 @@ SoftWire SWireL(PB6, PB7, SOFT_FAST);
 int koord_kaire[3];
 int koord_desine[3];
 
+int t1, t2;
 int a10, a11, a12, a20, a21, a22, a23, a30, a32, a33, a34, a40, a43, a44;
 int a2x;
 int a2y;
