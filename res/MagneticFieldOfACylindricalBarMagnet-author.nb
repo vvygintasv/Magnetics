@@ -1,0 +1,1624 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     68205,       1615]
+NotebookOptionsPosition[     63729,       1477]
+NotebookOutlinePosition[     65387,       1529]
+CellTagsIndexPosition[     65059,       1517]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Magnetic Field of a Cylindrical Bar Magnet", "DemoTitle",
+ CellChangeTimes->{3.570208503620061*^9}],
+
+Cell["", "InitializationSection"],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateSection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"StreamPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"bz", "[", 
+         RowBox[{"a", ",", "L", ",", "\[Rho]", ",", "z"}], "]"}], "+", 
+        RowBox[{"bz", "[", 
+         RowBox[{"a", ",", "L", ",", "\[Rho]", ",", 
+          RowBox[{"-", "z"}]}], "]"}]}], ",", 
+       RowBox[{
+        RowBox[{".75", 
+         RowBox[{"b\[Rho]", "[", 
+          RowBox[{"a", ",", "L", ",", "\[Rho]", ",", "z"}], "]"}]}], "-", 
+        RowBox[{".75", 
+         RowBox[{"b\[Rho]", "[", 
+          RowBox[{"a", ",", "L", ",", "\[Rho]", ",", 
+           RowBox[{"-", "z"}]}], "]"}]}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"z", ",", 
+       RowBox[{"-", "20"}], ",", "20"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Rho]", ",", 
+       RowBox[{"-", "20"}], ",", "20"}], "}"}], ",", 
+     RowBox[{"StreamStyle", "\[Rule]", "Thick"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"595", ",", "400"}], "}"}]}], ",", 
+     RowBox[{"Frame", "\[Rule]", "False"}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", ".75"}], ",", 
+     RowBox[{"Epilog", "\[Rule]", 
+      RowBox[{"Inset", "[", 
+       RowBox[{
+        RowBox[{"Graphics3D", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"Gray", ",", 
+            RowBox[{"Cylinder", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"-", "L"}], "/", "2"}], ",", "0", ",", "0"}], 
+                 "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"L", "/", "2"}], ",", "0", ",", "0"}], "}"}]}], 
+               "}"}], ",", "a"}], "]"}]}], "}"}], ",", 
+          RowBox[{"Boxed", "\[Rule]", "False"}], ",", 
+          RowBox[{"ViewPoint", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", 
+             RowBox[{"-", "10"}], ",", "0"}], "}"}]}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{".5", ",", ".5"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1.5", "L"}], ",", 
+          RowBox[{"4", "a"}]}], "}"}]}], "]"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "2", ",", "\"\<radius (cm)\>\""}], "}"}], ",", ".5", 
+     ",", "10", ",", ".1", ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"L", ",", "10", ",", "\"\<length (cm)\>\""}], "}"}], ",", ".5", 
+     ",", "20", ",", ".1", ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"TrackedSymbols", "\[RuleDelayed]", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "L", ",", "z", ",", "\[Rho]"}], "}"}]}], ",", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Top"}], ",", 
+   RowBox[{"Initialization", "\[RuleDelayed]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"bz", "[", 
+        RowBox[{"a_", ",", "L_", ",", "\[Rho]_", ",", "z_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox[
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"L", "-", 
+               RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+            RowBox[{"4", " ", 
+             SuperscriptBox["\[Rho]", "2"]}]}]], 
+          RowBox[{"L", "-", 
+           RowBox[{"2", " ", "z"}]}]]}], "+", 
+        FractionBox[
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"L", "-", 
+             RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+          RowBox[{"4", " ", "\[Rho]", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "a"}], "+", "\[Rho]"}], ")"}]}]}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"L", "-", 
+            RowBox[{"2", " ", "z"}]}], ")"}], " ", 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"L", "-", 
+               RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+            RowBox[{"4", " ", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{"a", "-", "\[Rho]"}], ")"}], "2"]}]}]]}]]}]}], ";", 
+      RowBox[{
+       RowBox[{"b\[Rho]", "[", 
+        RowBox[{"a_", ",", "L_", ",", "\[Rho]_", ",", "z_"}], "]"}], ":=", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"2", " ", "a"}], 
+         SqrtBox[
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"L", "-", 
+              RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+           RowBox[{"4", " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"a", "-", "\[Rho]"}], ")"}], "2"]}]}]]], "-", 
+        RowBox[{"Log", "[", 
+         RowBox[{
+          RowBox[{"2", " ", "a"}], "+", 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"L", "-", 
+               RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+            RowBox[{"4", " ", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{"a", "-", "\[Rho]"}], ")"}], "2"]}]}]], "-", 
+          RowBox[{"2", " ", "\[Rho]"}]}], "]"}], "+", 
+        RowBox[{"Log", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "2"}], " ", "\[Rho]"}], "+", 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"L", "-", 
+               RowBox[{"2", " ", "z"}]}], ")"}], "2"], "+", 
+            RowBox[{"4", " ", 
+             SuperscriptBox["\[Rho]", "2"]}]}]]}], "]"}]}]}]}], ")"}]}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.5182832137899942`*^9, 3.51828330913881*^9}, {
+   3.518283357628726*^9, 3.518283665578581*^9}, {3.518283762369397*^9, 
+   3.518283779367697*^9}, 3.518283820483067*^9, {3.518283880501609*^9, 
+   3.518283886372274*^9}, {3.518283977364957*^9, 3.518284034932445*^9}, {
+   3.5182841033179607`*^9, 3.518284112869211*^9}, {3.518284213203415*^9, 
+   3.518284257466971*^9}, {3.518284579018653*^9, 3.518284588592462*^9}, {
+   3.518284740512231*^9, 3.518284742702578*^9}, {3.5182847941785383`*^9, 
+   3.5182848063133698`*^9}, {3.518309302402225*^9, 3.5183094067269907`*^9}, {
+   3.51830949818736*^9, 3.518309550164713*^9}, {3.518309594006978*^9, 
+   3.5183096427343073`*^9}, {3.518309702650326*^9, 3.5183097079133873`*^9}, {
+   3.518309780733234*^9, 3.518309781595553*^9}, 3.518309812814343*^9, {
+   3.518309843751391*^9, 3.518310002372642*^9}, {3.518310072281011*^9, 
+   3.518310091904698*^9}, {3.518310154156352*^9, 3.5183102131812677`*^9}, {
+   3.518310274721265*^9, 3.518310331060251*^9}, {3.518310426179146*^9, 
+   3.518310426877046*^9}, {3.5183105008181467`*^9, 3.518310501432584*^9}, 
+   3.518310555500125*^9, 3.518310705962097*^9, {3.51837043843992*^9, 
+   3.5183705369167633`*^9}, {3.5183706371176147`*^9, 3.518370641764163*^9}, {
+   3.518370711395543*^9, 3.518370776198579*^9}, 3.518370819409655*^9, {
+   3.5183709863964567`*^9, 3.518371047986774*^9}, {3.518371513764063*^9, 
+   3.518371631086714*^9}, {3.51837173961661*^9, 3.518371796544022*^9}, {
+   3.518371830602366*^9, 3.5183718446888437`*^9}, {3.518371877291156*^9, 
+   3.518371882921967*^9}, {3.51837191621989*^9, 3.5183719219945183`*^9}, {
+   3.518371981493114*^9, 3.518371982043336*^9}, {3.518372025117897*^9, 
+   3.518372077996749*^9}, {3.518372129655468*^9, 3.518372156576006*^9}, {
+   3.518372237793343*^9, 3.518372303073339*^9}, {3.518372378907895*^9, 
+   3.5183723840663548`*^9}, {3.518372418492546*^9, 3.518372488267149*^9}, 
+   3.518372625776196*^9, {3.518372747530767*^9, 3.518372784243368*^9}, {
+   3.518384561308998*^9, 3.5183845812051287`*^9}, 3.5183875565784903`*^9, 
+   3.5183876862607613`*^9, {3.5183878117599173`*^9, 3.518387830606627*^9}, {
+   3.5183878825297203`*^9, 3.518387882903923*^9}, {3.518387950019554*^9, 
+   3.518387953609942*^9}, {3.51838848619172*^9, 3.518388506614049*^9}, {
+   3.5183885546658897`*^9, 3.5183885732175703`*^9}, 3.518388607282069*^9, {
+   3.5183887926176987`*^9, 3.5183887994539127`*^9}, {3.518388840749014*^9, 
+   3.518388937979775*^9}, 3.518388968444396*^9, 3.518389136673705*^9, 
+   3.5183891897292547`*^9, {3.518390472823873*^9, 3.518390520808024*^9}, {
+   3.5183906648382607`*^9, 3.5183906941816607`*^9}, {3.5183908147468033`*^9, 
+   3.5183908254814672`*^9}, {3.518390943078972*^9, 3.5183909642478313`*^9}, {
+   3.5183910545873117`*^9, 3.51839107326003*^9}, {3.518391116252336*^9, 
+   3.518391194754901*^9}, {3.518392899981901*^9, 3.518392900812479*^9}, {
+   3.518393341117118*^9, 3.5183933591651363`*^9}, {3.518393494829782*^9, 
+   3.518393522406598*^9}, {3.51839356429466*^9, 3.5183935814711933`*^9}, {
+   3.51839470641075*^9, 3.5183947272570963`*^9}, 3.518395991364478*^9, {
+   3.5183961086297293`*^9, 3.518396110193583*^9}, {3.518396166560526*^9, 
+   3.5183961777832947`*^9}, 3.518396270353701*^9, 3.518396453391573*^9, 
+   3.518513919206501*^9, {3.518514022615164*^9, 3.518514049270492*^9}, {
+   3.5194906746636877`*^9, 3.5194906867048917`*^9}, {3.570199758648987*^9, 
+   3.570199773984847*^9}, {3.5702049471930857`*^9, 3.5702049923378*^9}, {
+   3.570205041065317*^9, 3.570205126042575*^9}, 3.570205279970355*^9, {
+   3.570205645075079*^9, 3.570205696950563*^9}, {3.570206005345544*^9, 
+   3.57020603488268*^9}, {3.570206149144368*^9, 3.570206203297505*^9}, {
+   3.5702063329917717`*^9, 3.5702063519111557`*^9}, {3.5702064063371067`*^9, 
+   3.570206417737602*^9}, {3.570206843885193*^9, 3.5702068771569242`*^9}, {
+   3.570206940953382*^9, 3.570206945632207*^9}, {3.570207035292523*^9, 
+   3.570207101817913*^9}, {3.570207817072566*^9, 3.570207835416204*^9}, {
+   3.5702079618812733`*^9, 3.570207964376079*^9}, {3.570210542329844*^9, 
+   3.5702105943301907`*^9}, 3.570210648324408*^9, {3.570210747292306*^9, 
+   3.570210758977262*^9}, {3.5702109130983963`*^9, 3.5702109562977123`*^9}, {
+   3.570211143051436*^9, 3.570211149297591*^9}, {3.570211204320051*^9, 
+   3.570211220455089*^9}, {3.570213805625341*^9, 3.5702138208978567`*^9}, {
+   3.570213917500093*^9, 3.570213924962977*^9}, {3.570214000347123*^9, 
+   3.570214004079867*^9}, 3.570214455717392*^9, 3.570214495463224*^9, {
+   3.570214619772122*^9, 3.570214632457595*^9}, {3.57056749731914*^9, 
+   3.570567513247418*^9}, {3.6331148058713217`*^9, 3.6331148289976344`*^9}, 
+   3.6331162522994957`*^9, {3.633117071849177*^9, 3.633117086381536*^9}, 
+   3.6331171287490263`*^9, 3.633117301447041*^9, 3.633117830540387*^9, {
+   3.633118267099057*^9, 3.633118335329131*^9}, {3.633118487182704*^9, 
+   3.633118555486126*^9}, {3.633118634578137*^9, 3.633118641088944*^9}, {
+   3.633119527125149*^9, 3.633119538676321*^9}, {3.633119872513323*^9, 
+   3.633119897813958*^9}, {3.633119932346096*^9, 3.633119935728297*^9}, {
+   3.633119997975531*^9, 3.633120070952496*^9}},
+ CellID->387419244],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 2, $CellContext`L$$ = 10, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 2, "radius (cm)"}, 0.5, 10, 0.1}, {{
+       Hold[$CellContext`L$$], 10, "length (cm)"}, 0.5, 20, 0.1}}, 
+    Typeset`size$$ = {595., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`a$4967$$ = 0, $CellContext`L$4968$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 2, $CellContext`L$$ = 10}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$4967$$, 0], 
+        Hold[$CellContext`L$$, $CellContext`L$4968$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`bz[$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] + $CellContext`bz[$CellContext`a$$, \
+$CellContext`L$$, $CellContext`\[Rho], -$CellContext`z], 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] - 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], -$CellContext`z]}, {$CellContext`z, -20, 
+         20}, {$CellContext`\[Rho], -20, 20}, StreamStyle -> Thick, 
+        ImageSize -> {595, 400}, Frame -> False, AspectRatio -> 0.75, Epilog -> 
+        Inset[
+          Graphics3D[{Gray, 
+            
+            Cylinder[{{(-$CellContext`L$$)/2, 0, 0}, {$CellContext`L$$/2, 0, 
+               0}}, $CellContext`a$$]}, Boxed -> False, 
+           ViewPoint -> {1, -10, 0}], {0, 0}, {0.5, 0.5}, {
+          1.5 $CellContext`L$$, 4 $CellContext`a$$}]], 
+      "Specifications" :> {{{$CellContext`a$$, 2, "radius (cm)"}, 0.5, 10, 
+         0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`L$$, 10, "length (cm)"}, 0.5, 20, 0.1, 
+         Appearance -> "Labeled"}}, 
+      "Options" :> {
+       TrackedSymbols :> {$CellContext`a$$, $CellContext`L$$, $CellContext`z, \
+$CellContext`\[Rho]}, ControlPlacement -> Top}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{640., {256., 261.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`bz[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          
+          Blank[]]] := -((($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]/($CellContext`L - 
+          2 $CellContext`z)) + (($CellContext`L - 2 $CellContext`z)^2 + 
+          4 $CellContext`\[Rho] (-$CellContext`a + \
+$CellContext`\[Rho]))/(($CellContext`L - 
+          2 $CellContext`z) (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^
+          Rational[1, 2]); $CellContext`b\[Rho][
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          Blank[]]] := 
+       2 $CellContext`a/(($CellContext`L - 2 $CellContext`z)^2 + 
+          4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - Log[
+        2 $CellContext`a + (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - 
+         2 $CellContext`\[Rho]] + 
+        Log[(-2) $CellContext`\[Rho] + (($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]]); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->491524217]
+}, {2}]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateCaptionSection"],
+
+Cell[TextData[{
+ "A bar magnet is often approximated simply as a magnetic dipole with north \
+and south magnetic poles separated by a distance ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]], "InlineMath"],
+ ". This is not accurate when the magnet has a significant size, so that \
+magnetic lines of force also emanate from the central portion of the magnet. \
+In this Demonstration, we consider a cylindrical bar magnet of length ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]], "InlineMath"],
+ ", radius ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]], "InlineMath"],
+ ", and magnetization ",
+ Cell[BoxData[
+  FormBox["M", TraditionalForm]], "InlineMath"],
+ "\[LongDash]the magnetic moment per unit volume, which is characteristic of \
+the ferromagnetic material. The magnetization is assumed to be uniform \
+throughout the volume of the magnet, which neglects slight inhomogeneities \
+and possible deviations from the assumed relation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"d", "\[InvisibleSpace]", 
+     RowBox[{"B", "/", "d"}], "\[InvisibleSpace]", "H"}], "=", "constant"}], 
+   TraditionalForm]], "InlineMath"],
+ "."
+}], "ManipulateCaption",
+ CellChangeTimes->{{3.518193108184928*^9, 3.5181932514222393`*^9}, {
+  3.518193282951693*^9, 3.518193678143352*^9}, {3.518193795645224*^9, 
+  3.518193827269025*^9}, {3.518193889944992*^9, 3.518193999467471*^9}, {
+  3.5182198153578568`*^9, 3.518219815357997*^9}, {3.518396344884102*^9, 
+  3.5183963482910347`*^9}, {3.519762091003975*^9, 3.519762150318283*^9}, {
+  3.520171378150795*^9, 3.520171578577907*^9}, {3.520171618923671*^9, 
+  3.520171638820804*^9}, {3.569876494541316*^9, 3.569876504468952*^9}, {
+  3.570217557997671*^9, 3.570217598609686*^9}, {3.6331212023799133`*^9, 
+  3.6331212026789436`*^9}},
+ CellID->184816204],
+
+Cell[TextData[{
+ "The magnetic induction outside the magnet can conveniently be expressed as \
+the negative gradient of a magnetostatic potential: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     StyleBox["B",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], "(", 
+     StyleBox["r",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], ")"}], "=", 
+    RowBox[{"-", 
+     RowBox[{"\[Del]", 
+      RowBox[{
+       SubscriptBox["\[CapitalPhi]", "m"], "(", 
+       StyleBox["r",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], ")"}]}]}]}], TraditionalForm]], "InlineMath"],
+ ". For a point magnetic dipole ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["m",
+    FontWeight->"Bold",
+    FontSlant->"Plain"], TraditionalForm]], "InlineMath"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[CapitalPhi]", "m"], "(", 
+     StyleBox["r",
+      FontWeight->"Bold",
+      FontSlant->"Plain"], ")"}], "=", 
+    RowBox[{
+     FractionBox[
+      SubscriptBox["\[Mu]", "0"], 
+      RowBox[{"4", "\[Pi]"}]], 
+     RowBox[{
+      StyleBox["m",
+       FontWeight->"Bold",
+       FontSlant->"Plain"], "\[CenterDot]", 
+      RowBox[{
+       StyleBox["r",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], 
+       StyleBox["/",
+        FontWeight->"Bold",
+        FontSlant->"Plain"], 
+       SuperscriptBox["r", "3"]}]}]}]}], TraditionalForm]], "InlineMath"],
+ ". This is integrated over the volume of the magnet. It is most convenient \
+to work in cylindrical coordinates: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", ",", " ", "\[CapitalPhi]", ",", " ", "Z"}], TraditionalForm]],
+   "InlineMath"],
+ " for the source and ",
+ Cell[BoxData[
+  FormBox["\[Rho]", TraditionalForm]], "InlineMath"],
+ ", ",
+ Cell[BoxData[
+  FormBox["\[Phi]", TraditionalForm]], "InlineMath"],
+ ", ",
+ Cell[BoxData[
+  FormBox["z", TraditionalForm]], "InlineMath"],
+ " for the field point (",
+ Cell[BoxData[
+  FormBox["\[Phi]", TraditionalForm]], "InlineMath"],
+ " can arbitrarily be set equal to 0, in view of the anticipated cylindrical \
+symmetry). The detailed computation is given in Details below. A simplifying \
+feature is that integration over ",
+ Cell[BoxData[
+  FormBox["Z", TraditionalForm]], "InlineMath"],
+ " shows that the problem can be reduced to two magnetic monopolar disks \
+separated by the distance ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]], "InlineMath"],
+ "."
+}], "ManipulateCaption",
+ CellChangeTimes->{{3.5181940770066433`*^9, 3.518194097167927*^9}, {
+   3.518194332961247*^9, 3.518194354297923*^9}, {3.518194401427945*^9, 
+   3.518194441373457*^9}, {3.518194471390999*^9, 3.518194493683528*^9}, {
+   3.5181946047431803`*^9, 3.518194630933732*^9}, {3.518194688424171*^9, 
+   3.518194787591797*^9}, {3.518194830340352*^9, 3.518194888195516*^9}, {
+   3.518194951524126*^9, 3.518194973354495*^9}, {3.518195045223769*^9, 
+   3.518195379578644*^9}, {3.5181955060666*^9, 3.518195506888316*^9}, {
+   3.5181955648022213`*^9, 3.518195837550654*^9}, {3.51820086617493*^9, 
+   3.518200871094061*^9}, {3.5182197804378147`*^9, 3.518219794734716*^9}, {
+   3.518305640877495*^9, 3.518305693559725*^9}, {3.519490773726593*^9, 
+   3.51949077769899*^9}, 3.519757394035097*^9, {3.519762182619985*^9, 
+   3.519762184891246*^9}, {3.519762234459251*^9, 3.519762234459478*^9}, 
+   3.5201716758355083`*^9, {3.570556897635066*^9, 3.570556900969781*^9}},
+ CellID->1703742754],
+
+Cell[TextData[{
+ "For ease of visualization, only the field lines in the medial plane of the \
+magnet are shown. The three-dimensional field can easily be pictured by \
+virtue of the cylindrical symmetry about the ",
+ Cell[BoxData[
+  FormBox["Z", TraditionalForm]], "InlineMath"],
+ " axis. The lines of force originate from the north pole on the right and \
+terminate on the south pole on the left. Magnetic-induction magnitudes are \
+not emphasized in this Demonstration, only the geometry of field lines."
+}], "ManipulateCaption",
+ CellChangeTimes->{{3.518195873273909*^9, 3.518195946560964*^9}, {
+   3.518196050637298*^9, 3.518196058013377*^9}, {3.518196092791054*^9, 
+   3.518196193251067*^9}, {3.5183712323429403`*^9, 3.518371246383904*^9}, {
+   3.518371295991374*^9, 3.518371334023738*^9}, {3.518396735933565*^9, 
+   3.518396832830533*^9}, {3.5183968844189034`*^9, 3.518396889255879*^9}, 
+   3.519490793580578*^9, {3.519762264873487*^9, 3.519762286471277*^9}, {
+   3.570215090906904*^9, 3.570215154890276*^9}, 3.570215231064103*^9, {
+   3.6331211942170973`*^9, 3.6331211949671726`*^9}},
+ CellID->257517380]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ThumbnailSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 2, $CellContext`L$$ = 10, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 2, "radius (cm)"}, 0.5, 10, 0.1}, {{
+       Hold[$CellContext`L$$], 10, "length (cm)"}, 0.5, 20, 0.1}}, 
+    Typeset`size$$ = {595., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`a$5022$$ = 0, $CellContext`L$5023$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 2, $CellContext`L$$ = 10}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$5022$$, 0], 
+        Hold[$CellContext`L$$, $CellContext`L$5023$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`bz[$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] + $CellContext`bz[$CellContext`a$$, \
+$CellContext`L$$, $CellContext`\[Rho], -$CellContext`z], 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] - 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], -$CellContext`z]}, {$CellContext`z, -20, 
+         20}, {$CellContext`\[Rho], -20, 20}, StreamStyle -> Thick, 
+        ImageSize -> {595, 400}, Frame -> False, AspectRatio -> 0.75, Epilog -> 
+        Inset[
+          Graphics3D[{Gray, 
+            
+            Cylinder[{{(-$CellContext`L$$)/2, 0, 0}, {$CellContext`L$$/2, 0, 
+               0}}, $CellContext`a$$]}, Boxed -> False, 
+           ViewPoint -> {1, -10, 0}], {0, 0}, {0.5, 0.5}, {
+          1.5 $CellContext`L$$, 4 $CellContext`a$$}]], 
+      "Specifications" :> {{{$CellContext`a$$, 2, "radius (cm)"}, 0.5, 10, 
+         0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`L$$, 10, "length (cm)"}, 0.5, 20, 0.1, 
+         Appearance -> "Labeled"}}, 
+      "Options" :> {
+       TrackedSymbols :> {$CellContext`a$$, $CellContext`L$$, $CellContext`z, \
+$CellContext`\[Rho]}, ControlPlacement -> Top}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{640., {256., 261.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`bz[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          
+          Blank[]]] := -((($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]/($CellContext`L - 
+          2 $CellContext`z)) + (($CellContext`L - 2 $CellContext`z)^2 + 
+          4 $CellContext`\[Rho] (-$CellContext`a + \
+$CellContext`\[Rho]))/(($CellContext`L - 
+          2 $CellContext`z) (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^
+          Rational[1, 2]); $CellContext`b\[Rho][
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          Blank[]]] := 
+       2 $CellContext`a/(($CellContext`L - 2 $CellContext`z)^2 + 
+          4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - Log[
+        2 $CellContext`a + (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - 
+         2 $CellContext`\[Rho]] + 
+        Log[(-2) $CellContext`\[Rho] + (($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]]); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->347463406]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SnapshotsSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 2, $CellContext`L$$ = 20., 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 2, "radius (cm)"}, 0.5, 10, 0.1}, {{
+       Hold[$CellContext`L$$], 20., "length (cm)"}, 0.5, 20, 0.1}}, 
+    Typeset`size$$ = {595., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`a$5077$$ = 0, $CellContext`L$5078$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 2, $CellContext`L$$ = 20.}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$5077$$, 0], 
+        Hold[$CellContext`L$$, $CellContext`L$5078$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`bz[$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] + $CellContext`bz[$CellContext`a$$, \
+$CellContext`L$$, $CellContext`\[Rho], -$CellContext`z], 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] - 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], -$CellContext`z]}, {$CellContext`z, -20, 
+         20}, {$CellContext`\[Rho], -20, 20}, StreamStyle -> Thick, 
+        ImageSize -> {595, 400}, Frame -> False, AspectRatio -> 0.75, Epilog -> 
+        Inset[
+          Graphics3D[{Gray, 
+            
+            Cylinder[{{(-$CellContext`L$$)/2, 0, 0}, {$CellContext`L$$/2, 0, 
+               0}}, $CellContext`a$$]}, Boxed -> False, 
+           ViewPoint -> {1, -10, 0}], {0, 0}, {0.5, 0.5}, {
+          1.5 $CellContext`L$$, 4 $CellContext`a$$}]], 
+      "Specifications" :> {{{$CellContext`a$$, 2, "radius (cm)"}, 0.5, 10, 
+         0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`L$$, 20., "length (cm)"}, 0.5, 20, 0.1, 
+         Appearance -> "Labeled"}}, 
+      "Options" :> {
+       TrackedSymbols :> {$CellContext`a$$, $CellContext`L$$, $CellContext`z, \
+$CellContext`\[Rho]}, ControlPlacement -> Top}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{640., {256., 261.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`bz[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          
+          Blank[]]] := -((($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]/($CellContext`L - 
+          2 $CellContext`z)) + (($CellContext`L - 2 $CellContext`z)^2 + 
+          4 $CellContext`\[Rho] (-$CellContext`a + \
+$CellContext`\[Rho]))/(($CellContext`L - 
+          2 $CellContext`z) (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^
+          Rational[1, 2]); $CellContext`b\[Rho][
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          Blank[]]] := 
+       2 $CellContext`a/(($CellContext`L - 2 $CellContext`z)^2 + 
+          4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - Log[
+        2 $CellContext`a + (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - 
+         2 $CellContext`\[Rho]] + 
+        Log[(-2) $CellContext`\[Rho] + (($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]]); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->175414165],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 10., $CellContext`L$$ = 10, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 10., "radius (cm)"}, 0.5, 10, 0.1}, {{
+       Hold[$CellContext`L$$], 10, "length (cm)"}, 0.5, 20, 0.1}}, 
+    Typeset`size$$ = {595., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`a$5132$$ = 0, $CellContext`L$5133$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 10., $CellContext`L$$ = 10}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$5132$$, 0], 
+        Hold[$CellContext`L$$, $CellContext`L$5133$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`bz[$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] + $CellContext`bz[$CellContext`a$$, \
+$CellContext`L$$, $CellContext`\[Rho], -$CellContext`z], 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] - 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], -$CellContext`z]}, {$CellContext`z, -20, 
+         20}, {$CellContext`\[Rho], -20, 20}, StreamStyle -> Thick, 
+        ImageSize -> {595, 400}, Frame -> False, AspectRatio -> 0.75, Epilog -> 
+        Inset[
+          Graphics3D[{Gray, 
+            
+            Cylinder[{{(-$CellContext`L$$)/2, 0, 0}, {$CellContext`L$$/2, 0, 
+               0}}, $CellContext`a$$]}, Boxed -> False, 
+           ViewPoint -> {1, -10, 0}], {0, 0}, {0.5, 0.5}, {
+          1.5 $CellContext`L$$, 4 $CellContext`a$$}]], 
+      "Specifications" :> {{{$CellContext`a$$, 10., "radius (cm)"}, 0.5, 10, 
+         0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`L$$, 10, "length (cm)"}, 0.5, 20, 0.1, 
+         Appearance -> "Labeled"}}, 
+      "Options" :> {
+       TrackedSymbols :> {$CellContext`a$$, $CellContext`L$$, $CellContext`z, \
+$CellContext`\[Rho]}, ControlPlacement -> Top}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{640., {256., 261.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`bz[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          
+          Blank[]]] := -((($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]/($CellContext`L - 
+          2 $CellContext`z)) + (($CellContext`L - 2 $CellContext`z)^2 + 
+          4 $CellContext`\[Rho] (-$CellContext`a + \
+$CellContext`\[Rho]))/(($CellContext`L - 
+          2 $CellContext`z) (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^
+          Rational[1, 2]); $CellContext`b\[Rho][
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          Blank[]]] := 
+       2 $CellContext`a/(($CellContext`L - 2 $CellContext`z)^2 + 
+          4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - Log[
+        2 $CellContext`a + (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - 
+         2 $CellContext`\[Rho]] + 
+        Log[(-2) $CellContext`\[Rho] + (($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]]); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->172842806],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 0.5, $CellContext`L$$ = 0.5, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 0.5, "radius (cm)"}, 0.5, 10, 0.1}, {{
+       Hold[$CellContext`L$$], 0.5, "length (cm)"}, 0.5, 20, 0.1}}, 
+    Typeset`size$$ = {595., {198., 202.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`a$5187$$ = 0, $CellContext`L$5188$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 0.5, $CellContext`L$$ = 0.5}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`a$$, $CellContext`a$5187$$, 0], 
+        Hold[$CellContext`L$$, $CellContext`L$5188$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      StreamPlot[{$CellContext`bz[$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] + $CellContext`bz[$CellContext`a$$, \
+$CellContext`L$$, $CellContext`\[Rho], -$CellContext`z], 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], $CellContext`z] - 
+         0.75 $CellContext`b\[Rho][$CellContext`a$$, $CellContext`L$$, \
+$CellContext`\[Rho], -$CellContext`z]}, {$CellContext`z, -20, 
+         20}, {$CellContext`\[Rho], -20, 20}, StreamStyle -> Thick, 
+        ImageSize -> {595, 400}, Frame -> False, AspectRatio -> 0.75, Epilog -> 
+        Inset[
+          Graphics3D[{Gray, 
+            
+            Cylinder[{{(-$CellContext`L$$)/2, 0, 0}, {$CellContext`L$$/2, 0, 
+               0}}, $CellContext`a$$]}, Boxed -> False, 
+           ViewPoint -> {1, -10, 0}], {0, 0}, {0.5, 0.5}, {
+          1.5 $CellContext`L$$, 4 $CellContext`a$$}]], 
+      "Specifications" :> {{{$CellContext`a$$, 0.5, "radius (cm)"}, 0.5, 10, 
+         0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`L$$, 0.5, "length (cm)"}, 0.5, 20, 0.1, 
+         Appearance -> "Labeled"}}, 
+      "Options" :> {
+       TrackedSymbols :> {$CellContext`a$$, $CellContext`L$$, $CellContext`z, \
+$CellContext`\[Rho]}, ControlPlacement -> Top}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{640., {256., 261.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`bz[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          
+          Blank[]]] := -((($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]/($CellContext`L - 
+          2 $CellContext`z)) + (($CellContext`L - 2 $CellContext`z)^2 + 
+          4 $CellContext`\[Rho] (-$CellContext`a + \
+$CellContext`\[Rho]))/(($CellContext`L - 
+          2 $CellContext`z) (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^
+          Rational[1, 2]); $CellContext`b\[Rho][
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`L, 
+          Blank[]], 
+         Pattern[$CellContext`\[Rho], 
+          Blank[]], 
+         Pattern[$CellContext`z, 
+          Blank[]]] := 
+       2 $CellContext`a/(($CellContext`L - 2 $CellContext`z)^2 + 
+          4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - Log[
+        2 $CellContext`a + (($CellContext`L - 2 $CellContext`z)^2 + 
+           4 ($CellContext`a - $CellContext`\[Rho])^2)^Rational[1, 2] - 
+         2 $CellContext`\[Rho]] + 
+        Log[(-2) $CellContext`\[Rho] + (($CellContext`L - 2 $CellContext`z)^2 + 
+            4 $CellContext`\[Rho]^2)^Rational[1, 2]]); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->206657803]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "DetailsSection"],
+
+Cell["\<\
+The magnetic scalar potential is given by a triple integral in cylindrical \
+coordinates:\
+\>", "DetailNotes",
+ CellChangeTimes->{{3.5182009126786757`*^9, 3.518200976849391*^9}},
+ CellID->664820180],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["\[CapitalPhi]", "m"], "(", 
+    RowBox[{"\[Rho]", ",", "z"}], ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox[
+      SubscriptBox["\[Mu]", "0"], 
+      RowBox[{"4", "\[Pi]"}]], "M", 
+     RowBox[{"\[Integral]", 
+      RowBox[{"\[Integral]", 
+       RowBox[{"\[Integral]", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"z", "-", "Z"}], ")"}], "R", " ", "d", "\[InvisibleSpace]",
+           "R", " ", "d", "\[InvisibleSpace]", "\[CapitalPhi]", " ", "d", 
+          "\[InvisibleSpace]", "Z", " "}], 
+         SuperscriptBox[
+          RowBox[{"[", 
+           RowBox[{
+            SuperscriptBox["\[Rho]", "2"], "-", 
+            RowBox[{
+            "2", "R", " ", "\[Rho]", "  ", "cos", " ", "\[CapitalPhi]"}], "+", 
+            SuperscriptBox["R", "2"], "+", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{"z", "-", "Z"}], ")"}], "2"]}], "]"}], 
+          RowBox[{"3", "/", "2"}]]]}]}]}]}], "=", 
+    RowBox[{
+     FractionBox[
+      SubscriptBox["\[Mu]", "0"], 
+      RowBox[{"4", "\[Pi]"}]], 
+     RowBox[{"M", "(", 
+      RowBox[{
+       RowBox[{"\[Integral]", 
+        RowBox[{"\[Integral]", 
+         FractionBox[
+          RowBox[{
+          "R", " ", "d", "\[InvisibleSpace]", "R", " ", "d", 
+           "\[InvisibleSpace]", "\[CapitalPhi]", " ", Cell[
+           "", "InlineMath"]}], 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox["\[Rho]", "2"], "-", 
+            RowBox[{
+            "2", "R", " ", "\[Rho]", "  ", "cos", " ", "\[CapitalPhi]"}], "+", 
+            SuperscriptBox["R", "2"], "+", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"L", "/", "2"}], "-", "z"}], ")"}], "2"]}]]]}]}], "-", 
+       
+       RowBox[{"\[Integral]", 
+        RowBox[{"\[Integral]", 
+         FractionBox[
+          RowBox[{
+          "R", " ", "d", "\[InvisibleSpace]", "R", " ", "d", 
+           "\[InvisibleSpace]", "\[CapitalPhi]"}], 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox["\[Rho]", "2"], "-", 
+            RowBox[{
+            "2", "R", " ", "\[Rho]", "  ", "cos", " ", "\[CapitalPhi]"}], "+", 
+            SuperscriptBox["R", "2"], "+", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"L", "/", "2"}], "+", "z"}], ")"}], "2"]}]]]}]}]}], 
+      ")"}]}]}]}], TraditionalForm]], "InlineMath"]], "DetailNotes",
+ CellChangeTimes->{{3.518201252131176*^9, 3.518201703554967*^9}, {
+   3.518201764533141*^9, 3.518202079096002*^9}, {3.518202121473117*^9, 
+   3.5182022207951927`*^9}, {3.5182024743552103`*^9, 
+   3.5182024743553658`*^9}, {3.5182025434689407`*^9, 3.518202566366597*^9}, {
+   3.518209116903808*^9, 3.518209121301482*^9}, {3.518209320715016*^9, 
+   3.5182096072429113`*^9}, {3.5182096403261538`*^9, 3.51820964032631*^9}, {
+   3.518209687147437*^9, 3.5182097188938723`*^9}, {3.51820975370485*^9, 
+   3.518210011243425*^9}, {3.5182100834749804`*^9, 3.518210128060545*^9}, {
+   3.518210176491206*^9, 3.518210202206531*^9}, {3.5182102432543163`*^9, 
+   3.518210243254468*^9}, {3.5182103171729927`*^9, 3.518210426015766*^9}, {
+   3.518210461481357*^9, 3.518210482559635*^9}, {3.5182106688741426`*^9, 
+   3.518210741697776*^9}, {3.518210782571608*^9, 3.5182108838216743`*^9}, 
+   3.518210933302125*^9, {3.518210998260632*^9, 3.5182110298957977`*^9}, {
+   3.5182111594175987`*^9, 3.5182111910747843`*^9}, {3.5182198461075697`*^9, 
+   3.51821997139962*^9}, {3.518221444417965*^9, 3.5182214463379793`*^9}, {
+   3.518221656072164*^9, 3.5182216647377453`*^9}, {3.5182217323760033`*^9, 
+   3.518221739712943*^9}, {3.518221784968931*^9, 3.51822180145373*^9}, {
+   3.5182993348102913`*^9, 3.518299335699753*^9}, {3.518305727852124*^9, 
+   3.518306109117578*^9}, {3.518306153037644*^9, 3.518306176347417*^9}, {
+   3.5197574041965103`*^9, 3.5197574127165613`*^9}, {3.5197623571100693`*^9, 
+   3.519762420549806*^9}, {3.5197624540016327`*^9, 3.5197625067318163`*^9}, {
+   3.570067021239675*^9, 3.570067059367853*^9}, {3.570109330247967*^9, 
+   3.570109330248101*^9}, {3.5701094026297617`*^9, 3.5701094026298943`*^9}, {
+   3.570109944044392*^9, 3.5701099547833853`*^9}, {3.570115899198181*^9, 
+   3.570115905657612*^9}, {3.570117903498748*^9, 3.570117916641891*^9}, {
+   3.5701179829274178`*^9, 3.5701179910842733`*^9}, 3.570218508504285*^9},
+ CellID->667137238],
+
+Cell[TextData[{
+ "which can be interpreted as originating from two parallel, oppositely \
+charged monopolar disks of radius ",
+ Cell[BoxData[
+  FormBox["a", TraditionalForm]], "InlineMath"],
+ " separated by a perpendicular distance ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]], "InlineMath"],
+ ". The result can be expressed in terms of elliptic functions with \
+complicated arguments and the expressions for the magnetic field components \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "\[Rho]"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"\[PartialD]", 
+       SubscriptBox["\[CapitalPhi]", "m"]}]}], "/", 
+     RowBox[{"\[PartialD]", "\[InvisibleSpace]", "\[Rho]", "  "}]}]}], 
+   TraditionalForm]], "InlineMath"],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "z"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"\[PartialD]", 
+       SubscriptBox["\[CapitalPhi]", "m"]}]}], "/", 
+     RowBox[{"\[PartialD]", "z"}]}]}], TraditionalForm]], "InlineMath"],
+ " are even more complicated. It is much easier to do the computations \
+numerically, taking advantage of ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "'s very efficient ",
+ StyleBox["NIntegrate", "MR"],
+ " routines."
+}], "DetailNotes",
+ CellChangeTimes->{{3.518201252131176*^9, 3.518201703554967*^9}, {
+   3.518201764533141*^9, 3.518202079096002*^9}, {3.518202121473117*^9, 
+   3.5182022207951927`*^9}, {3.5182024743552103`*^9, 
+   3.5182024743553658`*^9}, {3.5182025434689407`*^9, 3.518202566366597*^9}, {
+   3.518209116903808*^9, 3.518209121301482*^9}, {3.518209320715016*^9, 
+   3.5182096072429113`*^9}, {3.5182096403261538`*^9, 3.51820964032631*^9}, {
+   3.518209687147437*^9, 3.5182097188938723`*^9}, {3.51820975370485*^9, 
+   3.518210011243425*^9}, {3.5182100834749804`*^9, 3.518210128060545*^9}, {
+   3.518210176491206*^9, 3.518210202206531*^9}, {3.5182102432543163`*^9, 
+   3.518210243254468*^9}, {3.5182103171729927`*^9, 3.518210426015766*^9}, {
+   3.518210461481357*^9, 3.518210482559635*^9}, {3.5182106688741426`*^9, 
+   3.518210741697776*^9}, {3.518210782571608*^9, 3.5182108838216743`*^9}, 
+   3.518210933302125*^9, {3.518210998260632*^9, 3.5182110298957977`*^9}, {
+   3.5182111594175987`*^9, 3.5182111910747843`*^9}, {3.5182198461075697`*^9, 
+   3.51821997139962*^9}, {3.518221444417965*^9, 3.5182214463379793`*^9}, {
+   3.518221656072164*^9, 3.5182216647377453`*^9}, {3.5182217323760033`*^9, 
+   3.518221739712943*^9}, {3.518221784968931*^9, 3.51822180145373*^9}, {
+   3.5182993348102913`*^9, 3.518299335699753*^9}, {3.518305727852124*^9, 
+   3.518306109117578*^9}, {3.518306153037644*^9, 3.518306176347417*^9}, {
+   3.5197574041965103`*^9, 3.5197574127165613`*^9}, {3.5197623571100693`*^9, 
+   3.519762420549806*^9}, {3.5197624540016327`*^9, 3.519762476319872*^9}, {
+   3.519762528560287*^9, 3.5197625689656487`*^9}, 3.569876188450796*^9, {
+   3.570199819077304*^9, 3.570199943137126*^9}, {3.5701999936114264`*^9, 
+   3.570200185442911*^9}, {3.570200290850771*^9, 3.5702003442368727`*^9}, {
+   3.57020044243084*^9, 3.570200456486176*^9}, {3.570201649382373*^9, 
+   3.570201653437894*^9}, {3.5705571315779867`*^9, 3.570557133677721*^9}, {
+   3.5705571728780937`*^9, 3.570557172878249*^9}},
+ CellID->1934933872],
+
+Cell["We thereby obtain:", "DetailNotes",
+ CellChangeTimes->{{3.518306304621936*^9, 3.518306374741959*^9}, {
+   3.518306428201376*^9, 3.518306428203965*^9}, {3.56779183372665*^9, 
+   3.567791904248156*^9}, {3.56779199458147*^9, 3.5677920000438023`*^9}, 
+   3.56779245011272*^9, {3.567792491079959*^9, 3.567792496103921*^9}, {
+   3.569876074690627*^9, 3.569876129982669*^9}, {3.5702004927765913`*^9, 
+   3.5702008125879993`*^9}, {3.570200866571136*^9, 3.570200889313126*^9}, {
+   3.570200995871317*^9, 3.570200995871389*^9}, {3.570201042360628*^9, 
+   3.570201068298324*^9}, {3.570201127572033*^9, 3.570201241677396*^9}, {
+   3.57020128896865*^9, 3.57020139505873*^9}, {3.570201471844906*^9, 
+   3.5702014764176693`*^9}, {3.570201522488751*^9, 3.570201542473363*^9}, {
+   3.570205189177363*^9, 3.570205204358487*^9}, {3.570205487731615*^9, 
+   3.570205547027893*^9}, {3.57021774536705*^9, 3.570217749193269*^9}, {
+   3.570217871106572*^9, 3.5702180270350313`*^9}, {3.570218142612006*^9, 
+   3.570218166152649*^9}, {3.570554050132*^9, 3.570554124416543*^9}},
+ CellID->190664980],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "z"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       SubscriptBox["\[Mu]", "0"], 
+       RowBox[{"4", "\[Pi]"}]]}], "M", 
+     RowBox[{
+      SubsuperscriptBox["\[Integral]", "0", 
+       RowBox[{"2", "\[Pi]"}]], 
+      RowBox[{
+       SubsuperscriptBox["\[Integral]", "0", "a"], 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          FractionBox[
+           RowBox[{"R", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"L", "/", "2"}], "-", "z"}], ")"}]}], 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              SuperscriptBox["R", "2"], "+", 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"L", "/", "2"}], "-", "z"}], ")"}], "2"], "+", 
+              SuperscriptBox["\[Rho]", "2"], "-", 
+              RowBox[{
+              "2", " ", "R", " ", "\[Rho]", " ", "cos", " ", 
+               "\[CapitalPhi]"}]}], ")"}], 
+            RowBox[{"3", "/", "2"}]]], "+", 
+          FractionBox[
+           RowBox[{"R", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"L", "/", "2"}], "+", "z"}], ")"}]}], 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              SuperscriptBox["R", "2"], "+", 
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"L", "/", "2"}], "+", "z"}], ")"}], "2"], "+", 
+              SuperscriptBox["\[Rho]", "2"], "-", 
+              RowBox[{
+              "2", " ", "R", " ", "\[Rho]", " ", "cos", " ", 
+               "\[CapitalPhi]"}]}], ")"}], 
+            RowBox[{"3", "/", "2"}]]]}], ")"}], "d", "\[InvisibleSpace]", "R",
+         " ", "d", "\[InvisibleSpace]", "\[CapitalPhi]"}]}]}]}]}], 
+   TraditionalForm]], "InlineMath"],
+ " "
+}], "DetailNotes",
+ CellChangeTimes->{{3.518306304621936*^9, 3.518306374741959*^9}, {
+   3.518306428201376*^9, 3.518306428203965*^9}, {3.56779183372665*^9, 
+   3.567791904248156*^9}, {3.56779199458147*^9, 3.5677920000438023`*^9}, 
+   3.56779245011272*^9, {3.567792491079959*^9, 3.567792496103921*^9}, {
+   3.569876074690627*^9, 3.569876129982669*^9}, {3.5702004927765913`*^9, 
+   3.5702008125879993`*^9}, {3.570200866571136*^9, 3.570200889313126*^9}, {
+   3.570200995871317*^9, 3.570200995871389*^9}, {3.570201042360628*^9, 
+   3.570201068298324*^9}, {3.570201127572033*^9, 3.570201241677396*^9}, {
+   3.57020128896865*^9, 3.57020139505873*^9}, {3.570201471844906*^9, 
+   3.5702014764176693`*^9}, {3.570201522488751*^9, 3.570201542473363*^9}, {
+   3.570205189177363*^9, 3.570205204358487*^9}, {3.570205487731615*^9, 
+   3.570205547027893*^9}, {3.57021774536705*^9, 3.570217749193269*^9}, {
+   3.570217871106572*^9, 3.5702180270350313`*^9}, {3.570218142612006*^9, 
+   3.570218166152649*^9}, {3.570554050132*^9, 3.570554115378693*^9}},
+ CellID->554360964],
+
+Cell["and", "DetailNotes",
+ CellChangeTimes->{{3.518306304621936*^9, 3.518306374741959*^9}, {
+   3.518306428201376*^9, 3.518306428203965*^9}, {3.56779183372665*^9, 
+   3.567791904248156*^9}, {3.56779199458147*^9, 3.5677920000438023`*^9}, 
+   3.56779245011272*^9, {3.567792491079959*^9, 3.567792496103921*^9}, {
+   3.569876074690627*^9, 3.569876129982669*^9}, {3.5702004927765913`*^9, 
+   3.5702008125879993`*^9}, {3.570200866571136*^9, 3.570200889313126*^9}, {
+   3.570200995871317*^9, 3.570200995871389*^9}, {3.570201042360628*^9, 
+   3.570201068298324*^9}, {3.570201127572033*^9, 3.570201241677396*^9}, {
+   3.57020128896865*^9, 3.57020139505873*^9}, {3.570201471844906*^9, 
+   3.5702014764176693`*^9}, {3.570201522488751*^9, 3.570201542473363*^9}, {
+   3.570205189177363*^9, 3.570205204358487*^9}, {3.570205487731615*^9, 
+   3.570205547027893*^9}, {3.57021774536705*^9, 3.570217749193269*^9}, {
+   3.570217871106572*^9, 3.5702180270350313`*^9}, {3.570218142612006*^9, 
+   3.570218166152649*^9}, {3.570554050132*^9, 3.570554115376116*^9}},
+ CellID->1360661262],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["B", "\[Rho]"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       SubscriptBox["\[Mu]", "0"], 
+       RowBox[{"4", "\[Pi]"}]]}], "M", 
+     RowBox[{
+      SubsuperscriptBox["\[Integral]", "0", 
+       RowBox[{"2", "\[Pi]"}]], 
+      RowBox[{
+       SubsuperscriptBox["\[Integral]", "0", "a"], 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"R", " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"2", " ", "\[Rho]"}], "-", 
+               RowBox[{"2", " ", "R", " ", "cos", " ", "\[CapitalPhi]"}]}], 
+              ")"}]}], 
+            RowBox[{"2", " ", 
+             SuperscriptBox[
+              RowBox[{"(", 
+               RowBox[{
+                SuperscriptBox["R", "2"], "+", 
+                SuperscriptBox[
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"L", "/", "2"}], "-", "z"}], ")"}], "2"], "+", 
+                SuperscriptBox["\[Rho]", "2"], "-", 
+                RowBox[{
+                "2", " ", "R", " ", "\[Rho]", " ", "cos", " ", 
+                 "\[CapitalPhi]"}]}], ")"}], 
+              RowBox[{"3", "/", "2"}]]}]]}], "+", 
+          FractionBox[
+           RowBox[{"R", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"2", " ", "\[Rho]"}], "-", 
+              RowBox[{"2", " ", "R", " ", "cos", " ", "\[CapitalPhi]"}]}], 
+             " ", ")"}]}], 
+           RowBox[{"2", " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox["R", "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"L", "/", "2"}], "+", "z"}], ")"}], "2"], "+", 
+               SuperscriptBox["\[Rho]", "2"], "-", 
+               RowBox[{
+               "2", " ", "R", " ", "\[Rho]", " ", "cos", " ", "\[CapitalPhi]"}
+                ]}], ")"}], 
+             RowBox[{"3", "/", "2"}]]}]]}], ")"}], "d", "\[InvisibleSpace]", 
+        "R", " ", "d", "\[InvisibleSpace]", "\[CapitalPhi]"}]}]}]}]}], 
+   TraditionalForm]], "InlineMath"],
+ "."
+}], "DetailNotes",
+ CellChangeTimes->{{3.518306304621936*^9, 3.518306374741959*^9}, {
+   3.518306428201376*^9, 3.518306428203965*^9}, {3.56779183372665*^9, 
+   3.567791904248156*^9}, {3.56779199458147*^9, 3.5677920000438023`*^9}, 
+   3.56779245011272*^9, {3.567792491079959*^9, 3.567792496103921*^9}, {
+   3.569876074690627*^9, 3.569876129982669*^9}, {3.5702004927765913`*^9, 
+   3.5702008125879993`*^9}, {3.570200866571136*^9, 3.570200889313126*^9}, {
+   3.570200995871317*^9, 3.570200995871389*^9}, {3.570201042360628*^9, 
+   3.570201068298324*^9}, {3.570201127572033*^9, 3.570201241677396*^9}, {
+   3.57020128896865*^9, 3.57020139505873*^9}, {3.570201471844906*^9, 
+   3.5702014764176693`*^9}, {3.570201522488751*^9, 3.570201542473363*^9}, {
+   3.570205189177363*^9, 3.570205204358487*^9}, {3.570205487731615*^9, 
+   3.570205547027893*^9}, {3.57021774536705*^9, 3.570217749193269*^9}, {
+   3.570217871106572*^9, 3.5702180270350313`*^9}, {3.570218078286529*^9, 
+   3.570218104693185*^9}, {3.5705540551592207`*^9, 3.570554055159347*^9}},
+ CellID->460717536]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ControlSuggestionsSection"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[True], Cell[" Resize Images"]}],
+  "\"Click inside an image to reveal its orange resize frame.\\nDrag any of \
+the orange resize handles to resize the image.\"",
+  TooltipDelay->0.35]], "ControlSuggestions",
+ CellChangeTimes->{3.570208614548815*^9},
+ FontFamily->"Verdana",
+ CellTags->"ResizeImages"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Rotate and Zoom in 3D"]}],
+  RowBox[{
+   "\"Drag a 3D graphic to rotate it. Starting the drag near the center \
+tumbles\\nthe graphic; starting near a corner turns it parallel to the plane \
+of the screen.\\nHold down \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" (or \"", 
+    FrameBox[
+    "Cmd", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" on Mac) and drag up and down to zoom.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"RotateAndZoomIn3D"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Drag Locators"]}],
+  RowBox[{"\"Drag any locator (\"", 
+    GraphicsBox[
+     LocatorBox[
+      Scaled[{0.5, 0.5}]], ImageSize -> 20], 
+    "\", etc.) to move it around.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"DragLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Create and Delete Locators"]}],
+  RowBox[{"\"Insert a new locator in the graphic by holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key\\nand clicking where you want it to be. Delete a locator by \
+clicking it\\nwhile holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" key.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"CreateAndDeleteLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[True], Cell[" Slider Zoom"]}],
+  RowBox[{"\"Hold down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key while moving a slider to make fine adjustments in the slider \
+value.\\nHold \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" and/or \"", 
+    FrameBox[
+    "Shift", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" at the same time as \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" to make ever finer adjustments.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ CellChangeTimes->{3.570208616388805*^9},
+ FontFamily->"Verdana",
+ CellTags->"SliderZoom"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[True], Cell[" Gamepad Controls"]}],
+  "\"Control this Demonstration with a gamepad or other\\nhuman interface \
+device connected to your computer.\"",
+  TooltipDelay->0.35]], "ControlSuggestions",
+ CellChangeTimes->{3.35696210375764*^9, 3.3895522232313623`*^9, 
+  3.570208617172778*^9},
+ FontFamily->"Verdana",
+ CellTags->"GamepadControls"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[True], Cell[" Automatic Animation"]}],
+  RowBox[{"\"Animate a slider in this Demonstration by clicking the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJzzTSzJSM1NLMlMTlRwL0osyMhMLlZwyy8CCjEzMjAwcIKwAgOI/R/IhBKc\n\
+/4EAyGAG0f+nTZsGwgysIJIRKsWKLAXGIHFmEpUgLADxWUAkI24jZs+eTaEt\n\
+IG+wQKRmzJgBlYf5lhEA30OqWA=="], "Graphics", ImageSize -> {9, 9}, ImageMargins -> 
+      0, CellBaseline -> Baseline], BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"button\\nnext to the slider, and then clicking the play button that \
+appears.\\nAnimate all controls by selecting \"", 
+    StyleBox["Autorun", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ CellChangeTimes->{3.570208617948827*^9},
+ FontFamily->"Verdana",
+ CellTags->"AutomaticAnimation"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Bookmark Animation"]}],
+  RowBox[{
+   "\"See a prepared animation of this Demonstration by selecting\\n\"", 
+    StyleBox["Animate Bookmarks", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SearchTermsSection"],
+
+Cell["physics", "SearchTerms",
+ CellChangeTimes->{{3.5181964182803497`*^9, 3.518196428787994*^9}},
+ CellID->915056955],
+
+Cell["electromagnetism", "SearchTerms",
+ CellChangeTimes->{{3.518196433022874*^9, 3.5181964378283653`*^9}},
+ CellID->1231846518],
+
+Cell["materials science", "SearchTerms",
+ CellChangeTimes->{{3.518196441594904*^9, 3.518196453445285*^9}},
+ CellID->1902070946]
+}, Open  ]],
+
+Cell["", "RelatedLinksSection"],
+
+Cell[CellGroupData[{
+
+Cell["", "AuthorSection"],
+
+Cell[TextData[{
+ "Contributed by: ",
+ ButtonBox["S. M. Blinder",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://demonstrations.wolfram.com/author.html?author=S.+M.+Blinder"],
+     None},
+  ButtonNote->
+   "http://demonstrations.wolfram.com/author.html?author=S.+M.+Blinder"]
+}], "Author",
+ CellChangeTimes->{{3.518196327218704*^9, 3.5181963337122602`*^9}, {
+  3.570215252001171*^9, 3.570215252003153*^9}},
+ CellID->944587066],
+
+Cell["with suggestions by Evangelos Matsinos", "Author",
+ CellChangeTimes->{{3.570215311025845*^9, 3.570215328009091*^9}, 
+   3.570215393233964*^9, {3.570556674202552*^9, 3.570556674751917*^9}},
+ CellID->1990306761]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1006, 921},
+WindowMargins->{{42, Automatic}, {Automatic, 24}},
+PrintingCopies->1,
+PrintingPageRange->{1, Automatic},
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (January 25, 2013)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Demonstration.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ResizeImages"->{
+  Cell[56779, 1280, 353, 9, 22, "ControlSuggestions",
+   CellTags->"ResizeImages"]},
+ "RotateAndZoomIn3D"->{
+  Cell[57135, 1291, 678, 16, 22, "ControlSuggestions",
+   CellTags->"RotateAndZoomIn3D"]},
+ "DragLocators"->{
+  Cell[57816, 1309, 340, 11, 22, "ControlSuggestions",
+   CellTags->"DragLocators"]},
+ "CreateAndDeleteLocators"->{
+  Cell[58159, 1322, 637, 15, 22, "ControlSuggestions",
+   CellTags->"CreateAndDeleteLocators"]},
+ "SliderZoom"->{
+  Cell[58799, 1339, 885, 22, 22, "ControlSuggestions",
+   CellTags->"SliderZoom"]},
+ "GamepadControls"->{
+  Cell[59687, 1363, 393, 10, 22, "ControlSuggestions",
+   CellTags->"GamepadControls"]},
+ "AutomaticAnimation"->{
+  Cell[60083, 1375, 1505, 32, 22, "ControlSuggestions",
+   CellTags->"AutomaticAnimation"]},
+ "BookmarkAnimation"->{
+  Cell[61591, 1409, 908, 21, 22, "ControlSuggestions",
+   CellTags->"BookmarkAnimation"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ResizeImages", 64159, 1490},
+ {"RotateAndZoomIn3D", 64268, 1493},
+ {"DragLocators", 64378, 1496},
+ {"CreateAndDeleteLocators", 64494, 1499},
+ {"SliderZoom", 64608, 1502},
+ {"GamepadControls", 64714, 1505},
+ {"AutomaticAnimation", 64828, 1508},
+ {"BookmarkAnimation", 64945, 1511}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 105, 1, 74, "DemoTitle"],
+Cell[687, 25, 33, 0, 287, "InitializationSection"],
+Cell[CellGroupData[{
+Cell[745, 29, 29, 0, 194, "ManipulateSection"],
+Cell[CellGroupData[{
+Cell[799, 33, 11146, 241, 292, "Input",
+ CellID->387419244],
+Cell[11948, 276, 4361, 90, 529, "Output",
+ CellID->491524217]
+}, {2}]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16355, 372, 36, 0, 169, "ManipulateCaptionSection"],
+Cell[16394, 374, 1797, 37, 85, "ManipulateCaption",
+ CellID->184816204],
+Cell[18194, 413, 3397, 93, 96, "ManipulateCaption",
+ CellID->1703742754],
+Cell[21594, 508, 1112, 18, 53, "ManipulateCaption",
+ CellID->257517380]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22743, 531, 28, 0, 173, "ThumbnailSection"],
+Cell[22774, 533, 4361, 90, 529, "Output",
+ CellID->347463406]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27172, 628, 28, 0, 143, "SnapshotsSection"],
+Cell[27203, 630, 4365, 90, 529, "Output",
+ CellID->175414165],
+Cell[31571, 722, 4369, 90, 529, "Output",
+ CellID->172842806],
+Cell[35943, 814, 4373, 90, 529, "Output",
+ CellID->206657803]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40353, 909, 26, 0, 336, "DetailsSection"],
+Cell[40382, 911, 208, 5, 22, "DetailNotes",
+ CellID->664820180],
+Cell[40593, 918, 4460, 98, 65, "DetailNotes",
+ CellID->667137238],
+Cell[45056, 1018, 3254, 66, 74, "DetailNotes",
+ CellID->1934933872],
+Cell[48313, 1086, 1076, 15, 22, "DetailNotes",
+ CellID->190664980],
+Cell[49392, 1103, 2957, 72, 44, "DetailNotes",
+ CellID->554360964],
+Cell[52352, 1177, 1062, 15, 22, "DetailNotes",
+ CellID->1360661262],
+Cell[53417, 1194, 3285, 79, 44, "DetailNotes",
+ CellID->460717536]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[56739, 1278, 37, 0, 126, "ControlSuggestionsSection"],
+Cell[56779, 1280, 353, 9, 22, "ControlSuggestions",
+ CellTags->"ResizeImages"],
+Cell[57135, 1291, 678, 16, 22, "ControlSuggestions",
+ CellTags->"RotateAndZoomIn3D"],
+Cell[57816, 1309, 340, 11, 22, "ControlSuggestions",
+ CellTags->"DragLocators"],
+Cell[58159, 1322, 637, 15, 22, "ControlSuggestions",
+ CellTags->"CreateAndDeleteLocators"],
+Cell[58799, 1339, 885, 22, 22, "ControlSuggestions",
+ CellTags->"SliderZoom"],
+Cell[59687, 1363, 393, 10, 22, "ControlSuggestions",
+ CellTags->"GamepadControls"],
+Cell[60083, 1375, 1505, 32, 22, "ControlSuggestions",
+ CellTags->"AutomaticAnimation"],
+Cell[61591, 1409, 908, 21, 22, "ControlSuggestions",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62536, 1435, 30, 0, 155, "SearchTermsSection"],
+Cell[62569, 1437, 118, 2, 22, "SearchTerms",
+ CellID->915056955],
+Cell[62690, 1441, 128, 2, 22, "SearchTerms",
+ CellID->1231846518],
+Cell[62821, 1445, 127, 2, 22, "SearchTerms",
+ CellID->1902070946]
+}, Open  ]],
+Cell[62963, 1450, 31, 0, 141, "RelatedLinksSection"],
+Cell[CellGroupData[{
+Cell[63019, 1454, 25, 0, 129, "AuthorSection"],
+Cell[63047, 1456, 436, 12, 22, "Author",
+ CellID->944587066],
+Cell[63486, 1470, 215, 3, 22, "Author",
+ CellID->1990306761]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
