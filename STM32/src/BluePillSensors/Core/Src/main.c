@@ -122,6 +122,16 @@ config();
 while (1)
   {
     /* USER CODE END WHILE */
+	read_values_to_arrays(coord_L, coord_R);
+	for(int i = 0; i < 3; i++)
+	{
+	  if(coord_L[i] > 65536 / 2) coord_L[i] = coord_L[i] - 65536;
+	  if(coord_R[i] > 65536 / 2) coord_R[i] = coord_R[i] - 65536;
+	}
+	make_unit_vectors(coord_L, unit_vect_L);
+	make_unit_vectors(coord_R, unit_vect_R);
+	//print_values(unit_vect_L, unit_vect_R);
+	HAL_Delay(5);
 
     /* USER CODE BEGIN 3 */
   }
@@ -177,7 +187,14 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+	printf("Error Handler Activated\n");
+	HAL_Init();
+	SystemClock_Config();
+	MX_GPIO_Init();
+	MX_I2C1_Init();
+	MX_I2C2_Init();
+	MX_USART1_UART_Init();
+	config();
   /* USER CODE END Error_Handler_Debug */
 }
 
