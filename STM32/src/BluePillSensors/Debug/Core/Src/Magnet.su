@@ -1,6 +1,6 @@
-Magnet.c:27:6:make_unit_vectors	32	static
-Magnet.c:37:6:mag_read_register_all_L	32	static
-Magnet.c:46:6:mag_read_register_all_R	32	static
-Magnet.c:124:6:mag_read_valueL	16	static
-Magnet.c:150:6:mag_read_valueR	16	static
+Magnet.c:19:6:make_unit_vectors	32	static
+Magnet.c:29:6:mag_read_register_all_L	24	static
+Magnet.c:39:6:mag_read_register_all_R	24	static
+Magnet.c:50:6:mag_read_valueL	40	static
+Magnet.c:83:6:mag_read_valueR	32	static
 Magnet.c:13:6:read_values_to_arrays	16	static
