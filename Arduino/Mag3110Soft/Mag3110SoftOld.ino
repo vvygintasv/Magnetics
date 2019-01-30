@@ -96,11 +96,12 @@ SoftWire SWireR(PB10, PB11, SOFT_FAST);
 SoftWire SWireL(PB6, PB7, SOFT_FAST);
 
 int bit16max;
-int field_L[3], field_R[3];
-float vect_L[3], vect_R[3];
-int bg_L[3], bg_R[3];
-float str_L, str_R;
+int field_L[3];
+int field_R[3];
+int bg_L[3];
+int bg_R[3];
 int end_of_startup;
+int max_value;
 char buff;
  
 void setup()
@@ -112,14 +113,13 @@ void setup()
   bit16max = 65536;
   config();            // turn the MAG3110 on
   end_of_startup = 100;
-  str_L = 0;
-  str_R = 0;
   bg_L[0] = 0;
   bg_L[1] = 0;
   bg_L[2] = 0;
   bg_R[0] = 0;
   bg_R[1] = 0;
   bg_R[2] = 0;
+  max_value = 20000;
   Serial.println("Press any key");
   while(Serial.available() < 1) buff = Serial.read();
   reset_background(field_L, field_R, bg_L, bg_R, end_of_startup);
@@ -135,9 +135,9 @@ void loop()
     field_L[i] -= bg_L[i];
     field_R[i] -= bg_R[i];
   }
-
-  make_vectors(field_L, field_R, vect_L, vect_R, str_L, str_R);
-
+  print_values(field_L, field_R);
+  make_vectors(field_L, field_R, max_value);
+  
   if(Serial.available() > 0)
   {
     buff = Serial.read();
@@ -180,6 +180,29 @@ void config(void)
   SWireL.endTransmission();       // stop transmitting
 }
  
+void print_values(int field_L[], int field_R[])
+{
+  Serial.print("Left: ");
+  Serial.print("x=");
+  Serial.print(field_L[0]);
+  Serial.print(" ");  
+  Serial.print("y=");    
+  Serial.print(field_L[1]);
+  Serial.print(" ");       
+  Serial.print("z=");    
+  Serial.print(field_L[2]);
+  Serial.print(" ");  
+  Serial.print("  Right: ");
+  Serial.print("x=");
+  Serial.print(field_R[0]);
+  Serial.print(" ");  
+  Serial.print("y=");    
+  Serial.print(field_R[1]);
+  Serial.print(" ");       
+  Serial.print("z=");    
+  Serial.println(field_R[2]);
+}
+
 void reset_background(int field_L[], int field_R[], int bg_L[], int bg_R[], int end_of_startup)
 {  
   for(int j = 0; j <= end_of_startup; j++)
@@ -206,106 +229,8 @@ void reset_background(int field_L[], int field_R[], int bg_L[], int bg_R[], int 
   }
 }
 
-void make_vectors(int field_L[], int field_R[], float vect_L[], float vect_R[], float vect_length_L, float vect_length_R)
-{
-  vect_length_L = 0;
-  vect_length_R = 0;
-  for(int i = 0; i < 3; i++)
-  {
-    vect_length_L += pow(field_L[i], 2);
-    vect_length_R += pow(field_R[i], 2);
-  }
-  vect_length_L = sqrt(vect_length_L);
-  vect_length_R = sqrt(vect_length_R);
-
-  for(int i = 0; i < 3; i++)
-  {
-    vect_L[i] = field_L[i]*1.0 / vect_length_L;
-    vect_R[i] = field_R[i]*1.0 / vect_length_R;
-  }
-  print_values(vect_L, vect_R, vect_length_L, vect_length_R); 
-}
-
-int find_section(float vect[])
-{
-  int section;
-  bool X_pos, X_neg;
-  bool Y_pos, Y_neg;
-  if(abs(vect[0]) > 0.5)
-  {
-    if(vect[0] > 0)
-    {
-      X_pos = true;
-      X_neg = false;
-    }
-    else if(vect[0] < 0)
-    {
-      X_neg = true;
-      X_pos = false;
-    }
-  }
-  else
-  {
-    X_neg = false;
-    X_pos = false;
-  }
-  if(abs(vect[1]) > 0.5)
-  {
-    if(vect[1] > 0)
-    {
-      Y_pos = true;
-      Y_neg = false;
-    }
-    else if(vect[1] < 0)
-    {
-      Y_neg = true;
-      Y_pos = false;
-    }
-  }
-  else
-  {
-    Y_neg = false;
-    Y_pos = false;
-  }
-  if(X_neg && Y_neg) section = 1;
-  else if(X_neg && Y_pos) section = 3;
-  else if(X_neg) section = 2;
-  else if(X_pos && Y_pos) section = 5;
-  else if(Y_pos) section = 4;
-  else if(X_pos && Y_neg) section = 7;
-  else if(X_pos) section = 6;
-  else if(Y_neg) section = 8;
-  else section = 0;
-
-  return section;
-}
-
-void location(float vect[], float str)
-{
-  String posit = "Unknown";
-  int section = find_section(vect);
-  bool middle = false;
-
-  if(str > 3000 && middle) middle = false;
-  if(str < 1000 && !middle && posit != "Unknown") middle = true;
-  
-  if(!middle)
-  {
-    if(section == 0) posit = "Unknown";
-    if(section == 1) posit = "Move X neg and Y neg";
-    if(section == 2) posit = "Move Y neg";
-    if(section == 3) posit = "Move X pos and Y neg";
-    if(section == 4) posit = "Move X pos";
-    if(section == 5) posit = "Move X pos and Y pos";
-    if(section == 6) posit = "Move Y pos";
-    if(section == 7) posit = "Move X neg and Y pos";
-    if(section == 8) posit = "Move X neg";
-  }
-  else if(middle) posit == "Middle";
-  Serial.print(" ");
-  Serial.println(posit);
-}
-
+void make_vectors()
+ 
 int mag_read_registerL(int reg)
 {
   int reg_val;
@@ -385,31 +310,4 @@ int read_zL(void)
 int read_zR(void)
 {
   return mag_read_valueR(0x05, 0x06);
-}
-
-void print_values(float vect_L[], float vect_R[], float vect_length_L, float vect_length_R)
-{
-  Serial.print("Left: ");
-  Serial.print(" x=");
-  Serial.print(vect_L[0]);
-  Serial.print(" y=");    
-  Serial.print(vect_L[1]);      
-  Serial.print(" z=");    
-  Serial.print(vect_L[2]);
-  Serial.print(" Strength= "); 
-  Serial.print(vect_length_L);
-  location(vect_L, vect_length_L);
-  //Serial.print(" section= "); 
-  //Serial.print(q);
-  Serial.print("  Right: ");
-  Serial.print(" x=");
-  Serial.print(vect_R[0]);
-  Serial.print( "y=");    
-  Serial.print(vect_R[1]);   
-  Serial.print(" z=");    
-  Serial.print(vect_R[2]);
-  Serial.print(" Strength= "); 
-  Serial.print(vect_length_R);
-  location(vect_R, vect_length_R);
-  Serial.println("");
 }
