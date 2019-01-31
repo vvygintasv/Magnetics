@@ -102,6 +102,7 @@ int bg_L[3], bg_R[3];
 float str_L, str_R;
 int end_of_startup;
 char buff;
+String posit_L, posit_R;
  
 void setup()
 {
@@ -120,6 +121,8 @@ void setup()
   bg_R[0] = 0;
   bg_R[1] = 0;
   bg_R[2] = 0;
+  posit_L = "Unknown";
+  posit_R = "Unknown";
   Serial.println("Press any key");
   while(Serial.available() < 1) buff = Serial.read();
   reset_background(field_L, field_R, bg_L, bg_R, end_of_startup);
@@ -138,8 +141,9 @@ void loop()
 
   Serial.print("Left: ");
   make_vectors(field_L, vect_L, str_L);
-  Serial.print("Right: ");
+  Serial.print(" Right: ");
   make_vectors(field_R, vect_R, str_R);
+  location_twosensors(vect_L, vect_R, str_L, str_R, posit_L, posit_R);
 
   if(Serial.available() > 0)
   {
@@ -209,11 +213,11 @@ void reset_background(int field_L[], int field_R[], int bg_L[], int bg_R[], int 
   }
 }
 
-void make_vectors(int field[], float vect[], float vect_length)
+void make_vectors(int field[], float vect[], float& vect_length)
 {
   vect_length = 0;
 
-  for(int i = 0; i < 3; i++) vect_length_L += pow(field[i], 2);
+  for(int i = 0; i < 3; i++) vect_length += pow(field[i], 2);
   vect_length = sqrt(vect_length);
   for(int i = 0; i < 3; i++) vect[i] = field[i]*1.0 / vect_length;
 
@@ -275,9 +279,9 @@ int find_section(float vect[])
 }
 
 String location(int section, bool middle)
-{
-  /*
+{  
   String posit = "Unknown";
+  /*
   int section = find_section(vect);
   bool middle = false;
 
@@ -296,20 +300,18 @@ String location(int section, bool middle)
     if(section == 7) posit = "Move X neg and Y pos";
     if(section == 8) posit = "Move X neg";
   }
-  else if(middle) posit == "Middle";
-  Serial.print(" ");
-  Serial.println(posit);
+  else if(middle) posit = "Middle";
+  //Serial.print(" ");
+  //Serial.println(posit);
   return posit;
 }
 
-void location_twosensors(float vect_L[], float vect_R[])
+void location_twosensors(float vect_L[], float vect_R[], float str_L, float str_R, String& posit_L, String& posit_R)
 {
-  String posit_L = "Unknown";
-  String posit_R = "Unknown";
-
   int section_L = find_section(vect_L);
   int section_R = find_section(vect_R);
-  bool middle_L = false, middle_R = false;
+  bool middle_L = false;
+  bool middle_R = false;
 
   if(str_L > 3000 && middle_L) middle_L = false;
   if(str_L < 1000 && !middle_L && posit_L != "Unknown") middle_L = true;
@@ -343,6 +345,16 @@ void location_twosensors(float vect_L[], float vect_R[])
     if(section_L == 8) posit_R = "Move X pos";  
   }
   else posit_R = location(section_R, middle_R);
+
+  Serial.print("Left: ");
+  Serial.print(str_L);
+  Serial.print(" ");
+  Serial.println(posit_L);
+  Serial.print("Right: ");
+  Serial.print(str_R);
+  Serial.print(" ");
+  Serial.println(posit_R);
+  Serial.println("");
 }
 
 int mag_read_registerL(int reg)
@@ -434,8 +446,8 @@ void print_values(float vect[], float vect_length)
   Serial.print(" z=");    
   Serial.print(vect[2]);
   Serial.print(" Strength= "); 
-  Serial.print(vect_length);
-  location(vect, vect_length);
+  Serial.println(vect_length);
+  //location(vect, vect_length);
   //Serial.print(" section= "); 
   //Serial.print(q);
 }
