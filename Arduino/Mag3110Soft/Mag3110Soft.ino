@@ -311,12 +311,12 @@ void location_twosensors(float vect_L[], float vect_R[], float str_L, float str_
   int section_L = find_section(vect_L);
   int section_R = find_section(vect_R);
   bool middle_L = false;
-  bool middle_R = false;
+  bool middle_R = false; 
 
-  if(str_L > 3000 && middle_L) middle_L = false;
   if(str_L < 1000 && !middle_L && posit_L != "Unknown") middle_L = true;
-  if(str_R > 3000 && middle_R) middle_R = false;
+  if((str_L > 3000 && middle_L) || middle_R) middle_L = false;
   if(str_R < 1000 && !middle_R && posit_R != "Unknown") middle_R = true;
+  if((str_R > 3000 && middle_R) || middle_L) middle_R = false;
 
   if(section_L == 0 && !middle_L)
   {
