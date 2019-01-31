@@ -92,8 +92,8 @@
 #define MAG3110_Y_AXIS 3
 #define MAG3110_Z_AXIS 5
 
-SoftWire SWireR(PB6, PB7, SOFT_FAST);
-SoftWire SWireL(PB10, PB11, SOFT_FAST);
+SoftWire SWireR(PB10, PB11, SOFT_FAST);
+SoftWire SWireL(PB6, PB7, SOFT_FAST);
 
 int bit16max;
 int field_L[3], field_R[3];
@@ -278,7 +278,7 @@ int find_section(float vect[])
   return section;
 }
 
-String location(int section, bool middle)
+String location(int section, bool middle, char L_R)
 {  
   String posit = "Unknown";
   /*
@@ -288,19 +288,38 @@ String location(int section, bool middle)
   if(str > 3000 && middle) middle = false;
   if(str < 1000 && !middle && posit != "Unknown") middle = true;
   */
-  if(!middle)
+  if(L_R == 'L')
   {
-    if(section == 0) posit = "Unknown";
-    if(section == 1) posit = "Move X neg and Y neg";
-    if(section == 2) posit = "Move Y neg";
-    if(section == 3) posit = "Move X pos and Y neg";
-    if(section == 4) posit = "Move X pos";
-    if(section == 5) posit = "Move X pos and Y pos";
-    if(section == 6) posit = "Move Y pos";
-    if(section == 7) posit = "Move X neg and Y pos";
-    if(section == 8) posit = "Move X neg";
+    if(!middle)
+    {
+      if(section == 0) posit = "X = ?, Y = ?";
+      if(section == 1) posit = "X = 0, Y = 0";
+      if(section == 2) posit = "X = 1, Y = 0";
+      if(section == 3) posit = "X = 2, Y = 0";
+      if(section == 4) posit = "X = 2, Y = 1";
+      if(section == 5) posit = "X = 2, Y = 2";
+      if(section == 6) posit = "X = 1, Y = 2";
+      if(section == 7) posit = "X = 0, Y = 2";
+      if(section == 8) posit = "X = 0, Y = 1";
+    }
+    else if(middle) posit = "Middle";
   }
-  else if(middle) posit = "Middle";
+  else
+  {
+    if(!middle)
+    {
+      if(section == 0) posit = "X = ?, Y = ?";
+      if(section == 1) posit = "X = 0, Y = 0";
+      if(section == 2) posit = "X = 1, Y = 0";
+      if(section == 3) posit = "X = 2, Y = 0";
+      if(section == 4) posit = "X = 2, Y = 1";
+      if(section == 5) posit = "X = 2, Y = 2";
+      if(section == 6) posit = "X = 1, Y = 2";
+      if(section == 7) posit = "X = 0, Y = 2";
+      if(section == 8) posit = "X = 0, Y = 1";
+    }
+    else if(middle) posit = "Middle";
+  }
   //Serial.print(" ");
   //Serial.println(posit);
   return posit;
@@ -320,31 +339,31 @@ void location_twosensors(float vect_L[], float vect_R[], float str_L, float str_
 
   if(section_L == 0 && !middle_L)
   {
-    if(section_R == 0) posit_L = "Unknown";
-    if(section_R == 1) posit_L = "Move X neg and Y neg";
-    if(section_R == 2) posit_L = "Move X neg and Y neg";
-    if(section_R == 3) posit_L = "Move X neg and Y neg";
-    if(section_R == 4) posit_L = "Move X neg";
-    if(section_R == 5) posit_L = "Move X neg and Y pos";
-    if(section_R == 6) posit_L = "Move X neg and Y pos";
-    if(section_R == 7) posit_L = "Move X neg and Y pos";
-    if(section_R == 8) posit_L = "Move X neg";  
+    if(section_R == 0) posit_L = "X = ?, Y = ?";
+    if(section_R == 1) posit_L = "X = -3, Y = 0";
+    if(section_R == 2) posit_L = "X = -2, Y = 0";
+    if(section_R == 3) posit_L = "X = -1, Y = 0";
+    if(section_R == 4) posit_L = "X = -1, Y = 1";
+    if(section_R == 5) posit_L = "X = -1, Y = 2";
+    if(section_R == 6) posit_L = "X = -2, Y = 2";
+    if(section_R == 7) posit_L = "X = -3, Y = 2";
+    if(section_R == 8) posit_L = "X = -3, Y = 1";  
   }
-  else posit_L = location(section_L, middle_L);
+  else posit_L = location(section_L, middle_L, 'L');
 
   if(section_R == 0 && !middle_R)
   {
-    if(section_L == 0) posit_R = "Unknown";
-    if(section_L == 1) posit_R = "Move X pos and Y neg";
-    if(section_L == 2) posit_R = "Move X pos and Y neg";
-    if(section_L == 3) posit_R = "Move X pos and Y neg";
-    if(section_L == 4) posit_R = "Move X pos";
-    if(section_L == 5) posit_R = "Move X pos and Y pos";
-    if(section_L == 6) posit_R = "Move X pos and Y pos";
-    if(section_L == 7) posit_R = "Move X pos and Y pos";
-    if(section_L == 8) posit_R = "Move X pos";  
+    if(section_L == 0) posit_R = "X = ?, Y = ?";
+    if(section_L == 1) posit_R = "X = 3, Y = 0";
+    if(section_L == 2) posit_R = "X = 4, Y = 0";
+    if(section_L == 3) posit_R = "X = 5, Y = 0";
+    if(section_L == 4) posit_R = "X = 5, Y = 1";
+    if(section_L == 5) posit_R = "X = 5, Y = 2";
+    if(section_L == 6) posit_R = "X = 4, Y = 2";
+    if(section_L == 7) posit_R = "X = 3, Y = 2";
+    if(section_L == 8) posit_R = "X = 3, Y = 1";  
   }
-  else posit_R = location(section_R, middle_R);
+  else posit_R = location(section_R, middle_R, 'R');
 
   Serial.print("Left: ");
   Serial.print(str_L);

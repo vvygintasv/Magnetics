@@ -96,7 +96,6 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-  HAL_Delay(100);
 
   /* USER CODE BEGIN Init */
 
@@ -104,7 +103,6 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
-  HAL_Delay(100);
 
   /* USER CODE BEGIN SysInit */
 
@@ -112,14 +110,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  HAL_Delay(100);
   MX_I2C1_Init();
-
   MX_I2C2_Init();
-
-  HAL_Delay(100);
   MX_USART1_UART_Init();
-  HAL_Delay(100);
   /* USER CODE BEGIN 2 */
   config();
   /* USER CODE END 2 */
@@ -128,19 +121,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 while (1)
   {
+	read_values_to_arrays(coord_L[3], coord_R[3]);
+	HAL_Delay(100);
     /* USER CODE END WHILE */
-    read_values_to_arrays(coord_L, coord_R);
-    /*
-	for(int i = 0; i < 3; i++)
-	{
-	  if(coord_L[i] > 65536 / 2) coord_L[i] = coord_L[i] - 65536;
-	  if(coord_R[i] > 65536 / 2) coord_R[i] = coord_R[i] - 65536;
-	}
-	*/
-	make_unit_vectors(coord_L, unit_vect_L);
-	make_unit_vectors(coord_R, unit_vect_R);
-	//print_values(unit_vect_L, unit_vect_R);
-	HAL_Delay(5);
 
     /* USER CODE BEGIN 3 */
   }

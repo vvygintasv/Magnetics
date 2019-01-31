@@ -26,7 +26,7 @@ void make_unit_vectors(int coord[], float unit_vect[])
 	for(int i = 0; i < 3; i++) unit_vect[i] = coord[i] / sum;
 }
 
-void mag_read_register_all_L(uint8_t *receive_buffer[6])
+void mag_read_register_all_L(uint8_t receive_buffer[6])
 {
 
     HAL_I2C_Master_Transmit_IT(&hi2c1, MAG_ADDR, MAG3110_OUT_X_MSB, 1);  // note the & operator which gives us the address of the register_pointer variable
@@ -36,7 +36,7 @@ void mag_read_register_all_L(uint8_t *receive_buffer[6])
     HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, MAG_ADDR, receive_buffer, 6, I2C_LAST_FRAME);
 }
 
-void mag_read_register_all_R(uint8_t *receive_buffer[6])
+void mag_read_register_all_R(uint8_t receive_buffer[6])
 {
     // first set the register pointer to the register wanted to be read
     HAL_I2C_Master_Transmit_IT(&hi2c2, MAG_ADDR, MAG3110_OUT_X_MSB, 1);  // note the & operator which gives us the address of the register_pointer variable
