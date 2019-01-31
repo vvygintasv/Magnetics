@@ -274,15 +274,16 @@ int find_section(float vect[])
   return section;
 }
 
-void location(float vect[], float str)
+String location(int section, bool middle)
 {
+  /*
   String posit = "Unknown";
   int section = find_section(vect);
   bool middle = false;
 
   if(str > 3000 && middle) middle = false;
   if(str < 1000 && !middle && posit != "Unknown") middle = true;
-  
+  */
   if(!middle)
   {
     if(section == 0) posit = "Unknown";
@@ -298,8 +299,9 @@ void location(float vect[], float str)
   else if(middle) posit == "Middle";
   Serial.print(" ");
   Serial.println(posit);
+  return posit;
 }
-/*
+
 void location_twosensors(float vect_L[], float vect_R[])
 {
   String posit_L = "Unknown";
@@ -316,11 +318,33 @@ void location_twosensors(float vect_L[], float vect_R[])
 
   if(section_L == 0 && !middle_L)
   {
-    if(section_R != 0) section_L = abs(section_R - 4);
-    
+    if(section_R == 0) posit_L = "Unknown";
+    if(section_R == 1) posit_L = "Move X neg and Y neg";
+    if(section_R == 2) posit_L = "Move X neg and Y neg";
+    if(section_R == 3) posit_L = "Move X neg and Y neg";
+    if(section_R == 4) posit_L = "Move X neg";
+    if(section_R == 5) posit_L = "Move X neg and Y pos";
+    if(section_R == 6) posit_L = "Move X neg and Y pos";
+    if(section_R == 7) posit_L = "Move X neg and Y pos";
+    if(section_R == 8) posit_L = "Move X neg";  
   }
+  else posit_L = location(section_L, middle_L);
+
+  if(section_R == 0 && !middle_R)
+  {
+    if(section_L == 0) posit_R = "Unknown";
+    if(section_L == 1) posit_R = "Move X pos and Y neg";
+    if(section_L == 2) posit_R = "Move X pos and Y neg";
+    if(section_L == 3) posit_R = "Move X pos and Y neg";
+    if(section_L == 4) posit_R = "Move X pos";
+    if(section_L == 5) posit_R = "Move X pos and Y pos";
+    if(section_L == 6) posit_R = "Move X pos and Y pos";
+    if(section_L == 7) posit_R = "Move X pos and Y pos";
+    if(section_L == 8) posit_R = "Move X pos";  
+  }
+  else posit_R = location(section_R, middle_R);
 }
-*/
+
 int mag_read_registerL(int reg)
 {
   int reg_val;
