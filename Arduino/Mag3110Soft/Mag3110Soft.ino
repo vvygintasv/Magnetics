@@ -92,8 +92,8 @@
 #define MAG3110_Y_AXIS 3
 #define MAG3110_Z_AXIS 5
 
-SoftWire SWireR(PB10, PB11, SOFT_FAST);
-SoftWire SWireL(PB6, PB7, SOFT_FAST);
+SoftWire SWireR(PB6, PB7, SOFT_FAST);
+SoftWire SWireL(PB10, PB11, SOFT_FAST);
 
 int bit16max;
 int field_L[3], field_R[3];
@@ -136,7 +136,10 @@ void loop()
     field_R[i] -= bg_R[i];
   }
 
-  make_vectors(field_L, field_R, vect_L, vect_R, str_L, str_R);
+  Serial.print("Left: ");
+  make_vectors(field_L, vect_L, str_L);
+  Serial.print("Right: ");
+  make_vectors(field_R, vect_R, str_R);
 
   if(Serial.available() > 0)
   {
@@ -206,24 +209,15 @@ void reset_background(int field_L[], int field_R[], int bg_L[], int bg_R[], int 
   }
 }
 
-void make_vectors(int field_L[], int field_R[], float vect_L[], float vect_R[], float vect_length_L, float vect_length_R)
+void make_vectors(int field[], float vect[], float vect_length)
 {
-  vect_length_L = 0;
-  vect_length_R = 0;
-  for(int i = 0; i < 3; i++)
-  {
-    vect_length_L += pow(field_L[i], 2);
-    vect_length_R += pow(field_R[i], 2);
-  }
-  vect_length_L = sqrt(vect_length_L);
-  vect_length_R = sqrt(vect_length_R);
+  vect_length = 0;
 
-  for(int i = 0; i < 3; i++)
-  {
-    vect_L[i] = field_L[i]*1.0 / vect_length_L;
-    vect_R[i] = field_R[i]*1.0 / vect_length_R;
-  }
-  print_values(vect_L, vect_R, vect_length_L, vect_length_R); 
+  for(int i = 0; i < 3; i++) vect_length_L += pow(field[i], 2);
+  vect_length = sqrt(vect_length);
+  for(int i = 0; i < 3; i++) vect[i] = field[i]*1.0 / vect_length;
+
+  print_values(vect, vect_length); 
 }
 
 int find_section(float vect[])
@@ -305,7 +299,28 @@ void location(float vect[], float str)
   Serial.print(" ");
   Serial.println(posit);
 }
+/*
+void location_twosensors(float vect_L[], float vect_R[])
+{
+  String posit_L = "Unknown";
+  String posit_R = "Unknown";
 
+  int section_L = find_section(vect_L);
+  int section_R = find_section(vect_R);
+  bool middle_L = false, middle_R = false;
+
+  if(str_L > 3000 && middle_L) middle_L = false;
+  if(str_L < 1000 && !middle_L && posit_L != "Unknown") middle_L = true;
+  if(str_R > 3000 && middle_R) middle_R = false;
+  if(str_R < 1000 && !middle_R && posit_R != "Unknown") middle_R = true;
+
+  if(section_L == 0 && !middle_L)
+  {
+    if(section_R != 0) section_L = abs(section_R - 4);
+    
+  }
+}
+*/
 int mag_read_registerL(int reg)
 {
   int reg_val;
@@ -319,8 +334,7 @@ int mag_read_registerL(int reg)
   while(SWireL.available())    // slave may write less than requested
   { 
     reg_val = SWireL.read(); // read the byte
-  }
- 
+  } 
   return reg_val;
 }
 int mag_read_registerR(int reg)
@@ -337,7 +351,6 @@ int mag_read_registerR(int reg)
   { 
     reg_val = SWireR.read(); // read the byte
   }
- 
   return reg_val;
 }
  
@@ -387,29 +400,18 @@ int read_zR(void)
   return mag_read_valueR(0x05, 0x06);
 }
 
-void print_values(float vect_L[], float vect_R[], float vect_length_L, float vect_length_R)
+void print_values(float vect[], float vect_length)
 {
-  Serial.print("Left: ");
+  
   Serial.print(" x=");
-  Serial.print(vect_L[0]);
+  Serial.print(vect[0]);
   Serial.print(" y=");    
-  Serial.print(vect_L[1]);      
+  Serial.print(vect[1]);      
   Serial.print(" z=");    
-  Serial.print(vect_L[2]);
+  Serial.print(vect[2]);
   Serial.print(" Strength= "); 
-  Serial.print(vect_length_L);
-  location(vect_L, vect_length_L);
+  Serial.print(vect_length);
+  location(vect, vect_length);
   //Serial.print(" section= "); 
   //Serial.print(q);
-  Serial.print("  Right: ");
-  Serial.print(" x=");
-  Serial.print(vect_R[0]);
-  Serial.print( "y=");    
-  Serial.print(vect_R[1]);   
-  Serial.print(" z=");    
-  Serial.print(vect_R[2]);
-  Serial.print(" Strength= "); 
-  Serial.print(vect_length_R);
-  location(vect_R, vect_length_R);
-  Serial.println("");
 }
