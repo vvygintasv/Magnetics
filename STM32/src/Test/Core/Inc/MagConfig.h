@@ -9,6 +9,8 @@
 #ifndef INC_MAGCONFIG_H_
 #define INC_MAGCONFIG_H_
 
+#include <stdint.h>
+#include "stdbool.h"
 #define MAG_ADDR  0x0E //7-bit address for the MAG3110, doesn't change
 
 /////////////////////////////////////////
@@ -100,7 +102,7 @@
 #define MAG3110_Y_AXIS 3
 #define MAG3110_Z_AXIS 5
 
-void config(void); //Configures Magnetometer
+
 
 
 

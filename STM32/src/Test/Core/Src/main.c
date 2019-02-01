@@ -46,8 +46,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Magnet.h"
-#include "MagConfig.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -113,20 +112,22 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  config();
+
+  conf = config();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	read_values_to_arrays(coord_L);
-	reg_ptr = 0x07;
-	read_register(reg_ptr, buffr);
-    /* USER CODE END WHILE */
-	HAL_Delay(100);
-
     /* USER CODE BEGIN 3 */
+	  uint8_t data;
+	  while(read_data(MAG3110_WHO_AM_I, &data, 1) != 0)
+	  {
+		  HAL_Delay(1000);
+		  read_data(MAG3110_WHO_AM_I, &data, 1);
+		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  }
   }
   /* USER CODE END 3 */
 }

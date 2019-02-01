@@ -12,8 +12,8 @@
 
 void read_values_to_arrays(int koord_L[], int koord_R[])
 {
-	mag_read_valueL(koord_L, koord_R);
-	mag_read_valueR(koord_L, koord_R);
+	mag_read_valueL(koord_L);
+	mag_read_valueR(koord_R);
 }
 
 void make_unit_vectors(int coord[], float unit_vect[])
@@ -26,10 +26,11 @@ void make_unit_vectors(int coord[], float unit_vect[])
 	for(int i = 0; i < 3; i++) unit_vect[i] = coord[i] / sum;
 }
 
+/*
 void mag_read_register_all_L(uint8_t receive_buffer[6])
 {
-
-    HAL_I2C_Master_Transmit_IT(&hi2c1, MAG_ADDR, MAG3110_OUT_X_MSB, 1);  // note the & operator which gives us the address of the register_pointer variable
+	uint8_t addr = 0x01;
+    HAL_I2C_Master_Transmit_IT(&hi2c1, MAG_ADDR, &addr, 1);  // note the & operator which gives us the address of the register_pointer variable
 
     // receive the 2 x 8bit data into the receive buffer
     //HAL_I2C_Master_Receive_IT(&hi2c1, (MAG_ADDR<<1), receive_buffer, 6);
@@ -38,16 +39,17 @@ void mag_read_register_all_L(uint8_t receive_buffer[6])
 
 void mag_read_register_all_R(uint8_t receive_buffer[6])
 {
+	uint8_t addr = 0x01;
     // first set the register pointer to the register wanted to be read
-    HAL_I2C_Master_Transmit_IT(&hi2c2, MAG_ADDR, MAG3110_OUT_X_MSB, 1);  // note the & operator which gives us the address of the register_pointer variable
+    HAL_I2C_Master_Transmit_IT(&hi2c2, MAG_ADDR, &addr, 1);  // note the & operator which gives us the address of the register_pointer variable
 
     // receive the 2 x 8bit data into the receive buffer
     //HAL_I2C_Master_Receive_IT(&hi2c1, (MAG_ADDR<<1), receive_buffer, 6);
     HAL_I2C_Master_Sequential_Receive_IT(&hi2c2, MAG_ADDR, receive_buffer, 6, I2C_LAST_FRAME);
 }
+*/
 
-
-void mag_read_valueL(int koord_L[], int koord_R[])
+void mag_read_valueL(int koord_L[])
 {
 	uint8_t whoami_answer[1];
 	uint8_t whoami_address = 0x07;
@@ -55,19 +57,16 @@ void mag_read_valueL(int koord_L[], int koord_R[])
     HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, &whoami_address, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
 
     // receive the 2 x 8bit data into the receive buffer
-    //HAL_I2C_Master_Receive_IT(&hi2c1, (MAG_ADDR<<1), receive_buffer, 6);
     HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, whoami_answer, 1, 100);
 
     uint8_t reg_value[6];
 
-    //mag_read_register_all_L(reg_value);
-
+    uint8_t addr = 0x01;
     // first set the register pointer to the register wanted to be read
-    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, MAG3110_OUT_X_MSB, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
+    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, &addr, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
 
     // receive the 2 x 8bit data into the receive buffer
-    //HAL_I2C_Master_Receive_IT(&hi2c1, (MAG_ADDR<<1), receive_buffer, 6);
-    HAL_I2C_Master_Sequential_Receive_IT(&hi2c1, MAG_ADDR, reg_value, 6, I2C_LAST_FRAME);
+    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, reg_value, 6, 100);
 
 	koord_L[0] = (reg_value[1]|(reg_value[0] << 8));
 	koord_L[1] = (reg_value[3]|(reg_value[2] << 8));
@@ -80,16 +79,14 @@ void mag_read_valueL(int koord_L[], int koord_R[])
   //unsigned int out = (val_low|(val_high << 8)); //concatenate the MSB and LSB
   //return out;
 }
-void mag_read_valueR(int koord_L[], int koord_R[])
+void mag_read_valueR(int koord_R[])
 {
 	uint8_t reg_value[6];
-	//mag_read_register_all_R(reg_value);
-
+	uint8_t addr = 0x01;
     // first set the register pointer to the register wanted to be read
-    HAL_I2C_Master_Transmit_IT(&hi2c2, MAG_ADDR, MAG3110_OUT_X_MSB, 1);  // note the & operator which gives us the address of the register_pointer variable
+    HAL_I2C_Master_Transmit_IT(&hi2c2, MAG_ADDR, &addr, 1);  // note the & operator which gives us the address of the register_pointer variable
 
     // receive the 2 x 8bit data into the receive buffer
-    //HAL_I2C_Master_Receive_IT(&hi2c1, (MAG_ADDR<<1), receive_buffer, 6);
     HAL_I2C_Master_Sequential_Receive_IT(&hi2c2, MAG_ADDR, reg_value, 6, I2C_LAST_FRAME);
 
 	koord_R[0] = (reg_value[1]|(reg_value[0] << 8));

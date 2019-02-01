@@ -5,11 +5,10 @@
  *  Created on: Jan 25, 2019
  *      Author: vbele
  */
-#include "MagConfig.h"
-#include "Magnet.h"
-#include "math.h"
-#include "i2c.h"
 
+
+#include "MagConfig.h"
+/*
 void read_values_to_arrays(int koord_L[])
 {
 	mag_read_valueL(koord_L);
@@ -62,5 +61,26 @@ void mag_read_valueL(int koord_L[])
 
   //return out;
 }
+*/
+
+bool config(void) {
+	/* SetUp measurement mode -------------------------------------------*/
+	uint8_t config_regadd;
+	uint8_t config_data;
+
+	config_regadd = 0x10; // Select mode register
+	config_data = 0x01; //Continuous measurement mode
+	//HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR<<1, buffer, 2, 100);
+	//HAL_I2C_Mem_Write(&hi2c1, MAG_ADDR, config_regadd, I2C_MEMADD_SIZE_8BIT, &config_data, 1, 100);
+	if(write_register8(config_regadd, config_data) == 1) return false;
+
+	HAL_Delay(15);
+	config_regadd = 0x11; // Select mode register
+	config_data = 0x80; //Continuous measurement mode
+	//HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR<<1, buffer, 2, 100);
+	//HAL_I2C_Mem_Write(&hi2c1, MAG_ADDR, config_regadd, I2C_MEMADD_SIZE_8BIT, &config_data, 1, 100);
+	if(write_register8(config_regadd, config_data) == 1) return false;
+}
+
 
 /* USER CODE END Includes */

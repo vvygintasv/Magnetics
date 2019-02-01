@@ -121,7 +121,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 while (1)
   {
-	read_values_to_arrays(coord_L[3], coord_R[3]);
+	read_values_to_arrays(coord_L, coord_R);
 	HAL_Delay(100);
     /* USER CODE END WHILE */
 

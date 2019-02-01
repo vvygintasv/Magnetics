@@ -81,7 +81,10 @@ void Error_Handler(void);
 #define LED_Pin GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
-
+#include "Magnet.h"
+#include "MagConfig.h"
+#include "stdbool.h"
+bool conf;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
