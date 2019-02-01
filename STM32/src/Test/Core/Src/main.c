@@ -125,7 +125,6 @@ int main(void)
 	  while(read_data(MAG3110_WHO_AM_I, &data, 1) != 0)
 	  {
 		  HAL_Delay(1000);
-		  read_data(MAG3110_WHO_AM_I, &data, 1);
 		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 	  }
   }
