@@ -22,8 +22,8 @@ void make_unit_vectors(int coord[], float unit_vect[]);
 //uint16_t mag_read_registerR(uint8_t register_pointer);
 //void mag_read_register_all_L(uint8_t receive_buffer[6]);
 //void mag_read_register_all_R(uint8_t receive_buffer[6]);
-void mag_read_valueL(int koord_L[]);
-void mag_read_valueR(int koord_R[]);
+void mag_read_valueL(int coord[]);
+void mag_read_valueR(int coord[]);
 /*
 unsigned int read_xL(void);
 unsigned int read_xR(void);
