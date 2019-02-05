@@ -51,17 +51,10 @@ void mag_read_register_all_R(uint8_t receive_buffer[6])
 
 void mag_read_valueL(int koord_L[])
 {
-	uint8_t whoami_answer[1];
-	uint8_t whoami_address = 0x07;
-    // first set the register pointer to the register wanted to be read
-    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, &whoami_address, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
-
-    // receive the 2 x 8bit data into the receive buffer
-    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, whoami_answer, 1, 100);
-
     uint8_t reg_value[6];
 
     uint8_t addr = 0x01;
+
     // first set the register pointer to the register wanted to be read
     HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, &addr, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
 

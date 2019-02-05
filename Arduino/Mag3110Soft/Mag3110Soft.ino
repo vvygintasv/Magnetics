@@ -96,7 +96,7 @@ SoftWire SWireR(PB10, PB11, SOFT_FAST);
 SoftWire SWireL(PB6, PB7, SOFT_FAST);
 
 int bit16max;
-int field_L[3], field_R[3];
+int field_L[3], field_R[3], whoami;
 float vect_L[3], vect_R[3];
 int bg_L[3], bg_R[3];
 float str_L, str_R;
@@ -130,6 +130,12 @@ void setup()
  
 void loop()
 {
+  whoami = mag_read_registerL(0x07);
+  Serial.print("WhoAmI Left: ");
+  Serial.print(whoami);
+  whoami = mag_read_registerR(0x07);
+  Serial.print("  WhoAmI Right: ");
+  Serial.println(whoami);
   read_values_to_arrays(field_L, field_R);
   for(int i = 0; i < 3; i++)
   {
