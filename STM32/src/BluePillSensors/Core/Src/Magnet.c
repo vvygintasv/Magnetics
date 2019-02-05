@@ -10,7 +10,8 @@
 #include "math.h"
 #include "i2c.h"
 
-unsigned char buffer[6];
+uint8_t bufferW[6];
+uint8_t bufferR[6];
 
 void read_values_to_arrays(int koord_L[], int koord_R[])
 {
@@ -54,23 +55,21 @@ void mag_read_register_all_R(uint8_t receive_buffer[6])
 void mag_read_valueL(int coord[])
 {
     // first set the register pointer to the register wanted to be read
-    buffer[0] = 0x07;
-    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR<<1, buffer, 1, 100);
+    bufferW[0] = 0x07;
+    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferW, 1, 100);
     HAL_Delay(20);
-	HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR<<1, buffer, 1, 100);
+	HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferR, 1, 100);
 
-
-	HAL_Delay(20);
-	buffer[0] = 0x01;
-    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR<<1, buffer, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
+	bufferW[0] = 0x01;
+    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferW, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
     HAL_Delay(20);
     // receive the 2 x 8bit data into the receive buffer
-    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR<<1, buffer, 6, 100);
+    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferR, 6, 100);
     HAL_Delay(20);
 
-	coord[0] = (buffer[1]|(buffer[0] << 8));
-	coord[1] = (buffer[3]|(buffer[2] << 8));
-	coord[2] = (buffer[5]|(buffer[4] << 8));
+	coord[0] = (bufferR[1]|(bufferR[0] << 8));
+	coord[1] = (bufferR[3]|(bufferR[2] << 8));
+	coord[2] = (bufferR[5]|(bufferR[4] << 8));
 
   //uint8_t val_low = 0, val_high = 0;  //define the MSB and LSB
   //val_high = mag_read_registerL(msb_reg);
@@ -86,12 +85,12 @@ void mag_read_valueR(int coord[])
     uint8_t whoami_answer[1];
     uint8_t whoami_address = 0x07;
     // first set the register pointer to the register wanted to be read
-	HAL_I2C_Mem_Read(&hi2c2, MAG_ADDR<<1, whoami_address, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&whoami_answer, 1, 100);
+	HAL_I2C_Mem_Read(&hi2c2, MAG_ADDR, whoami_address, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&whoami_answer, 1, 100);
 	HAL_Delay(15);
-	HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR<<1, &addr, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
+	HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, &addr, 1, 100);  // note the & operator which gives us the address of the register_pointer variable
 	HAL_Delay(15);
     // receive the 2 x 8bit data into the receive buffer
-    HAL_I2C_Master_Sequential_Receive_IT(&hi2c2, MAG_ADDR<<1, reg_value, 6, I2C_LAST_FRAME);
+    HAL_I2C_Master_Sequential_Receive_IT(&hi2c2, MAG_ADDR, reg_value, 6, I2C_LAST_FRAME);
     HAL_Delay(15);
 	coord[0] = (reg_value[1]|(reg_value[0] << 8));
 	coord[1] = (reg_value[3]|(reg_value[2] << 8));
