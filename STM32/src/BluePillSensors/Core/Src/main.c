@@ -89,7 +89,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  printf("Console is working...\n\n");
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -110,11 +110,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
   MX_I2C2_Init();
   MX_USART1_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   config();
+  reset_background(field_L, field_R, bg_L, bg_R, 100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,8 +125,21 @@ while (1)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	read_values_to_arrays(coord_L, coord_R);
-	HAL_Delay(100);
+	read_values_to_arrays(field_L, field_R);
+
+	for(int i = 0; i < 3; i++)
+	{
+	  if(field_L[i] > 65536 / 2) field_L[i] = field_L[i] - 65536;
+	  if(field_R[i] > 65536 / 2) field_R[i] = field_R[i] - 65536;
+	  field_L[i] -= bg_L[i];
+	  field_R[i] -= bg_R[i];
+	}
+	printf("Left: ");
+	printf(" Right: \n");
+
+	str_L = make_unit_vectors(field_L, unit_vect_L);
+	str_R = make_unit_vectors(field_R, unit_vect_R);
+	HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }

@@ -131,11 +131,11 @@ void setup()
 void loop()
 {
   whoami = mag_read_registerL(0x07);
-  Serial.print("WhoAmI Left: ");
-  Serial.print(whoami);
+  //Serial.print("WhoAmI Left: ");
+  //Serial.print(whoami);
   whoami = mag_read_registerR(0x07);
-  Serial.print("  WhoAmI Right: ");
-  Serial.println(whoami);
+  //Serial.print("  WhoAmI Right: ");
+  //Serial.println(whoami);
   read_values_to_arrays(field_L, field_R);
   for(int i = 0; i < 3; i++)
   {
@@ -149,7 +149,8 @@ void loop()
   make_vectors(field_L, vect_L, str_L);
   Serial.print(" Right: ");
   make_vectors(field_R, vect_R, str_R);
-  location_twosensors(vect_L, vect_R, str_L, str_R, posit_L, posit_R);
+  print_values(vect_L, str_L, vect_R, str_R); 
+  //location_twosensors(vect_L, vect_R, str_L, str_R, posit_L, posit_R);
 
   if(Serial.available() > 0)
   {
@@ -225,161 +226,7 @@ void make_vectors(int field[], float vect[], float& vect_length)
 
   for(int i = 0; i < 3; i++) vect_length += pow(field[i], 2);
   vect_length = sqrt(vect_length);
-  for(int i = 0; i < 3; i++) vect[i] = field[i]*1.0 / vect_length;
-
-  print_values(vect, vect_length); 
-}
-
-int find_section(float vect[])
-{
-  int section;
-  bool X_pos, X_neg;
-  bool Y_pos, Y_neg;
-  if(abs(vect[0]) > 0.5)
-  {
-    if(vect[0] > 0)
-    {
-      X_pos = true;
-      X_neg = false;
-    }
-    else if(vect[0] < 0)
-    {
-      X_neg = true;
-      X_pos = false;
-    }
-  }
-  else
-  {
-    X_neg = false;
-    X_pos = false;
-  }
-  if(abs(vect[1]) > 0.5)
-  {
-    if(vect[1] > 0)
-    {
-      Y_pos = true;
-      Y_neg = false;
-    }
-    else if(vect[1] < 0)
-    {
-      Y_neg = true;
-      Y_pos = false;
-    }
-  }
-  else
-  {
-    Y_neg = false;
-    Y_pos = false;
-  }
-  if(X_neg && Y_neg) section = 1;
-  else if(X_neg && Y_pos) section = 3;
-  else if(X_neg) section = 2;
-  else if(X_pos && Y_pos) section = 5;
-  else if(Y_pos) section = 4;
-  else if(X_pos && Y_neg) section = 7;
-  else if(X_pos) section = 6;
-  else if(Y_neg) section = 8;
-  else section = 0;
-
-  return section;
-}
-
-String location(int section, bool middle, char L_R)
-{  
-  String posit = "Unknown";
-  /*
-  int section = find_section(vect);
-  bool middle = false;
-
-  if(str > 3000 && middle) middle = false;
-  if(str < 1000 && !middle && posit != "Unknown") middle = true;
-  */
-  if(L_R == 'L')
-  {
-    if(!middle)
-    {
-      if(section == 0) posit = "X = ?, Y = ?";
-      if(section == 1) posit = "X = 0, Y = 0";
-      if(section == 2) posit = "X = 1, Y = 0";
-      if(section == 3) posit = "X = 2, Y = 0";
-      if(section == 4) posit = "X = 2, Y = 1";
-      if(section == 5) posit = "X = 2, Y = 2";
-      if(section == 6) posit = "X = 1, Y = 2";
-      if(section == 7) posit = "X = 0, Y = 2";
-      if(section == 8) posit = "X = 0, Y = 1";
-    }
-    else if(middle) posit = "Middle";
-  }
-  else
-  {
-    if(!middle)
-    {
-      if(section == 0) posit = "X = ?, Y = ?";
-      if(section == 1) posit = "X = 0, Y = 0";
-      if(section == 2) posit = "X = 1, Y = 0";
-      if(section == 3) posit = "X = 2, Y = 0";
-      if(section == 4) posit = "X = 2, Y = 1";
-      if(section == 5) posit = "X = 2, Y = 2";
-      if(section == 6) posit = "X = 1, Y = 2";
-      if(section == 7) posit = "X = 0, Y = 2";
-      if(section == 8) posit = "X = 0, Y = 1";
-    }
-    else if(middle) posit = "Middle";
-  }
-  //Serial.print(" ");
-  //Serial.println(posit);
-  return posit;
-}
-
-void location_twosensors(float vect_L[], float vect_R[], float str_L, float str_R, String& posit_L, String& posit_R)
-{
-  int section_L = find_section(vect_L);
-  int section_R = find_section(vect_R);
-  bool middle_L = false;
-  bool middle_R = false; 
-
-  if(str_L < 1000 && !middle_L && posit_L != "Unknown") middle_L = true;
-  if((str_L > 3000 && middle_L) || middle_R) middle_L = false;
-  if(str_R < 1000 && !middle_R && posit_R != "Unknown") middle_R = true;
-  if((str_R > 3000 && middle_R) || middle_L) middle_R = false;
-
-  if(section_L == 0 && !middle_L)
-  {
-    if(section_R == 0) posit_L = "X = ?, Y = ?";
-    if(section_R == 1) posit_L = "X = -3, Y = 0";
-    if(section_R == 2) posit_L = "X = -2, Y = 0";
-    if(section_R == 3) posit_L = "X = -1, Y = 0";
-    if(section_R == 4) posit_L = "X = -1, Y = 1";
-    if(section_R == 5) posit_L = "X = -1, Y = 2";
-    if(section_R == 6) posit_L = "X = -2, Y = 2";
-    if(section_R == 7) posit_L = "X = -3, Y = 2";
-    if(section_R == 8) posit_L = "X = -3, Y = 1";  
-  }
-  else posit_L = location(section_L, middle_L, 'L');
-
-  if(section_R == 0 && !middle_R)
-  {
-    if(section_L == 0) posit_R = "X = ?, Y = ?";
-    if(section_L == 1) posit_R = "X = 3, Y = 0";
-    if(section_L == 2) posit_R = "X = 4, Y = 0";
-    if(section_L == 3) posit_R = "X = 5, Y = 0";
-    if(section_L == 4) posit_R = "X = 5, Y = 1";
-    if(section_L == 5) posit_R = "X = 5, Y = 2";
-    if(section_L == 6) posit_R = "X = 4, Y = 2";
-    if(section_L == 7) posit_R = "X = 3, Y = 2";
-    if(section_L == 8) posit_R = "X = 3, Y = 1";  
-  }
-  else posit_R = location(section_R, middle_R, 'R');
-
-  Serial.print("Left: ");
-  Serial.print(str_L);
-  Serial.print(" ");
-  Serial.println(posit_L);
-  Serial.print("Right: ");
-  Serial.print(str_R);
-  Serial.print(" ");
-  Serial.println(posit_R);
-  Serial.println("");
+  for(int i = 0; i < 3; i++) vect[i] = field[i]*1.0 / vect_length;  
 }
 
 int mag_read_registerL(int reg)
@@ -461,17 +308,22 @@ int read_zR(void)
   return mag_read_valueR(0x05, 0x06);
 }
 
-void print_values(float vect[], float vect_length)
+void print_values(float vect_L[], float vect_length_L, float vect_R[], float vect_length_R)
 {
-  
-  Serial.print(" x=");
-  Serial.print(vect[0]);
-  Serial.print(" y=");    
-  Serial.print(vect[1]);      
-  Serial.print(" z=");    
-  Serial.print(vect[2]);
-  Serial.print(" Strength= "); 
-  Serial.println(vect_length);
+  Serial.print(" ");
+  Serial.print(vect_L[0]);
+  Serial.print(" ");    
+  Serial.print(vect_L[1]);      
+  Serial.print(" ");    
+  Serial.print(vect_L[2]);
+  Serial.print(" ");
+  Serial.print(vect_R[0]);
+  Serial.print(" ");    
+  Serial.print(vect_R[1]);      
+  Serial.print(" ");    
+  Serial.println(vect_R[2]);
+  //Serial.print(" Strength= "); 
+  //Serial.println(vect_length);
   //location(vect, vect_length);
   //Serial.print(" section= "); 
   //Serial.print(q);

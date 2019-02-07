@@ -9,7 +9,7 @@
 #ifndef INC_MAGCONFIG_H_
 #define INC_MAGCONFIG_H_
 
-#define MAG_ADDR  0x0E //7-bit address for the MAG3110, doesn't change
+#define MAG_ADDR  0x1C //0E //7-bit address for the MAG3110, doesn't change
 
 /////////////////////////////////////////
 // MAG3110 Magnetometer Registers      //
