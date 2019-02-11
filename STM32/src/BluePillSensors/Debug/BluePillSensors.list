@@ -2406,7 +2406,7 @@ __STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch)
 		ITM_SendChar((*ptr++));
 	}
 	return len;
-	errno = ENOSYS;
+	//errno = ENOSYS;
 }
  80015c0:	4610      	mov	r0, r2
  80015c2:	bd10      	pop	{r4, pc}
