@@ -83,7 +83,7 @@ int _write(int32_t file, uint8_t *ptr, int32_t len)
 	int i;
 	for(i = 0; i < len; i++)
 	{
-		ITM_SendChar(*ptr++);
+		ITM_SendChar((*ptr++));
 	}
 	return len;
 	errno = ENOSYS;

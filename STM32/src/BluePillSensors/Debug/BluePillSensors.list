@@ -1846,14 +1846,14 @@ void MX_I2C1_Init(void)
 
   hi2c1.Instance = I2C1;
  80012fa:	480c      	ldr	r0, [pc, #48]	; (800132c <MX_I2C1_Init+0x34>)
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
  80012fc:	4b0c      	ldr	r3, [pc, #48]	; (8001330 <MX_I2C1_Init+0x38>)
  80012fe:	f8df e034 	ldr.w	lr, [pc, #52]	; 8001334 <MX_I2C1_Init+0x3c>
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
  8001302:	f44f 4280 	mov.w	r2, #16384	; 0x4000
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
  8001306:	e880 4008 	stmia.w	r0, {r3, lr}
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
  800130a:	2300      	movs	r3, #0
@@ -1886,7 +1886,7 @@ void MX_I2C1_Init(void)
  800132a:	bf00      	nop
  800132c:	20000108 	.word	0x20000108
  8001330:	40005400 	.word	0x40005400
- 8001334:	000186a0 	.word	0x000186a0
+ 8001334:	00061a80 	.word	0x00061a80
 
 08001338 <MX_I2C2_Init>:
 /* I2C2 init function */
@@ -2403,7 +2403,7 @@ __STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch)
  80015bc:	4293      	cmp	r3, r2
  80015be:	db01      	blt.n	80015c4 <_write+0x10>
 	{
-		ITM_SendChar(*ptr++);
+		ITM_SendChar((*ptr++));
 	}
 	return len;
 	errno = ENOSYS;
@@ -2433,7 +2433,7 @@ __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
  80015da:	6820      	ldr	r0, [r4, #0]
  80015dc:	2800      	cmp	r0, #0
  80015de:	d0fb      	beq.n	80015d8 <_write+0x24>
-		ITM_SendChar(*ptr++);
+		ITM_SendChar((*ptr++));
  80015e0:	5cc8      	ldrb	r0, [r1, r3]
     {
       __NOP();
