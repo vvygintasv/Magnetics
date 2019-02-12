@@ -144,7 +144,7 @@ while (1)
 	k++;
 	if(k >= 20) k = 0;
 
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
 	avgstr_R = average(strsum_R, 20);
 
 	HAL_Delay(1);

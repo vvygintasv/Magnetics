@@ -2313,7 +2313,7 @@ void SystemClock_Config(void)
  80015d8:	4648      	mov	r0, r9
  80015da:	f7ff fccd 	bl	8000f78 <__aeabi_f2iz>
  80015de:	4b16      	ldr	r3, [pc, #88]	; (8001638 <main+0x118>)
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
  80015e0:	2114      	movs	r1, #20
 	strsum_R[k] = str_R;
  80015e2:	f843 0024 	str.w	r0, [r3, r4, lsl #2]
@@ -2323,19 +2323,19 @@ void SystemClock_Config(void)
  80015e8:	2c13      	cmp	r4, #19
  80015ea:	bfc8      	it	gt
  80015ec:	2300      	movgt	r3, #0
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
  80015ee:	4628      	mov	r0, r5
 	if(k >= 20) k = 0;
  80015f0:	bfcc      	ite	gt
  80015f2:	f8c8 3000 	strgt.w	r3, [r8]
 	k++;
  80015f6:	f8c8 4000 	strle.w	r4, [r8]
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
  80015fa:	f7ff fe67 	bl	80012cc <average>
  80015fe:	4b0f      	ldr	r3, [pc, #60]	; (800163c <main+0x11c>)
 	avgstr_R = average(strsum_R, 20);
  8001600:	2114      	movs	r1, #20
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
  8001602:	6018      	str	r0, [r3, #0]
 	avgstr_R = average(strsum_R, 20);
  8001604:	480c      	ldr	r0, [pc, #48]	; (8001638 <main+0x118>)
