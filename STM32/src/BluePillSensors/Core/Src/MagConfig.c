@@ -42,11 +42,11 @@ void config(void) {
 
     bufferconf[0] = 0x07; // Select mode register
     bufferconf[1] = 0x00; //Continuous measurement mode
-    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100);
+    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100); //writes the address of the WHO_AM_I register as a test
     HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 1, 100);
 
     HAL_Delay(10);
-    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100);
+    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100); //if I2C communication is working properly, the read byte must always be 0xC4
     HAL_I2C_Master_Receive(&hi2c2, MAG_ADDR, (uint8_t*)&bufferread2, 1, 100);
     HAL_Delay(15);
 

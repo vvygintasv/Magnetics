@@ -1436,18 +1436,18 @@ void config(void) {
     bufferconf[0] = 0x07; // Select mode register
  800106e:	2307      	movs	r3, #7
     bufferconf[1] = 0x00; //Continuous measurement mode
-    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100);
+    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100); //writes the address of the WHO_AM_I register as a test
  8001070:	4622      	mov	r2, r4
     bufferconf[0] = 0x07; // Select mode register
  8001072:	7023      	strb	r3, [r4, #0]
-    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100);
+    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100); //writes the address of the WHO_AM_I register as a test
  8001074:	9500      	str	r5, [sp, #0]
  8001076:	4633      	mov	r3, r6
  8001078:	211c      	movs	r1, #28
  800107a:	4650      	mov	r0, sl
     bufferconf[1] = 0x00; //Continuous measurement mode
  800107c:	7067      	strb	r7, [r4, #1]
-    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100);
+    HAL_I2C_Master_Transmit(&hi2c2, MAG_ADDR, bufferconf, 1, 100); //writes the address of the WHO_AM_I register as a test
  800107e:	f000 feab 	bl	8001dd8 <HAL_I2C_Master_Transmit>
     HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 1, 100);
  8001082:	4633      	mov	r3, r6
@@ -1460,7 +1460,7 @@ void config(void) {
     HAL_Delay(10);
  8001090:	200a      	movs	r0, #10
  8001092:	f000 fbd1 	bl	8001838 <HAL_Delay>
-    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100);
+    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100); //if I2C communication is working properly, the read byte must always be 0xC4
  8001096:	4633      	mov	r3, r6
  8001098:	464a      	mov	r2, r9
  800109a:	9500      	str	r5, [sp, #0]
