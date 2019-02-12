@@ -48,6 +48,7 @@
 /* USER CODE BEGIN Includes */
 #include "MagConfig.h"
 #include "Magnet.h"
+#include "magnetmath.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,15 +67,15 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
 /* USER CODE BEGIN PV */
-unsigned char buffer[6];
+int strsum_L[20], strsum_R[20]; // array of the 20 most recent strength measurements
+int k = 0; // counter
+volatile float avgstr_L, avgstr_R; // the average magnetic field strength of the last 20 measurements
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -89,7 +90,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  printf("Console is working...\n\n");
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -129,17 +130,24 @@ while (1)
 
 	for(int i = 0; i < 3; i++)
 	{
-	  if(field_L[i] > 65536 / 2) field_L[i] = field_L[i] - 65536;
-	  if(field_R[i] > 65536 / 2) field_R[i] = field_R[i] - 65536;
-	  field_L[i] -= bg_L[i];
+	  if(field_L[i] > 65536 / 2) field_L[i] = field_L[i] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
+	  if(field_R[i] > 65536 / 2) field_R[i] = field_R[i] - 65536; //changes the representation of negative magnetic fields to negative values starting at zero
+	  field_L[i] -= bg_L[i]; //accounts for the background magnetic fields
 	  field_R[i] -= bg_R[i];
 	}
-	printf("Left: ");
-	printf(" Right: \n");
 
-	str_L = make_unit_vectors(field_L, unit_vect_L);
-	str_R = make_unit_vectors(field_R, unit_vect_R);
-	HAL_Delay(10);
+	str_L = make_unit_vectors(field_L, vect_L); //creates array of directional unit vectors and outputs strength of magnetic field
+	str_R = make_unit_vectors(field_R, vect_R);
+
+	strsum_L[k] = str_L; //adds strength of magnetic field to array for average calculation
+	strsum_R[k] = str_R;
+	k++;
+	if(k >= 20) k = 0;
+
+	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 strength measurements
+	avgstr_R = average(strsum_R, 20);
+
+	HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
