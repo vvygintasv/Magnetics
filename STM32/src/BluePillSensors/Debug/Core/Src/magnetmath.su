@@ -1,2 +1,2 @@
-magnetmath.c:11:6:CreateGrid	72	static
-magnetmath.c:41:6:CheckGrid	64	static
+magnetmath.c:11:6:CreateGrid	64	static
+magnetmath.c:41:5:CheckGrid	72	static

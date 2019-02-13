@@ -13,8 +13,8 @@
 #include "stdlib.h"
 #include "math.h"
 
-void CreateGrid(int grid[21][21][3], float height, float Br, float radius, float magnet_height);
-void CheckGrid(int grid[21][21][3], int field[], int grid_index[]);
+void CreateGrid(int grid_x[], int grid_y[], int grid_z[], float height, float Br, float radius, float magnet_height);
+int CheckGrid(int grid_x[], int grid_y[], int grid_z[], int field[]);
 
 #endif /* INC_MAGNETMATH_H_ */
 /* USER CODE END Includes */

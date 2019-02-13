@@ -71,7 +71,9 @@
 int strsum_L[20], strsum_R[20]; // array of the 20 most recent strength measurements
 int k = 0; // counter
 volatile float avgstr_L, avgstr_R; // the average magnetic field strength of the last 20 measurements
-int grid[21][21][3];
+int grid_x[441], grid_y[441], grid_z[441];
+int grid_index_L;
+int grid_index_R;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,6 +120,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   config();
   reset_background(field_L, field_R, bg_L, bg_R, 100);
+  CreateGrid(grid_x, grid_y, grid_z, 0.014, 1, 0.006, 0.026);
   //CreateGrid(grid, 0.014, 1, 0.006, 0.026);
   /* USER CODE END 2 */
 
@@ -148,6 +151,9 @@ while (1)
 
 	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
 	avgstr_R = average(strsum_R, 20);
+
+	grid_index_L = CheckGrid(grid_x, grid_y, grid_z, field_L);
+	grid_index_R = CheckGrid(grid_x, grid_y, grid_z, field_R);
 
 	HAL_Delay(1);
   }
