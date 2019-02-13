@@ -10,6 +10,9 @@
 #define INC_MAGNET_H_
 #include <stdint.h>
 #include <stdio.h>
+#include "math.h"
+#include "i2c.h"
+#include "MagConfig.h"
 
 int field_L[3], field_R[3];
 float vect_L[3], vect_R[3];;

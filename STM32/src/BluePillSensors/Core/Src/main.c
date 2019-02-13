@@ -71,6 +71,7 @@
 int strsum_L[20], strsum_R[20]; // array of the 20 most recent strength measurements
 int k = 0; // counter
 volatile float avgstr_L, avgstr_R; // the average magnetic field strength of the last 20 measurements
+int grid[21][21][3];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -117,6 +118,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   config();
   reset_background(field_L, field_R, bg_L, bg_R, 100);
+  //CreateGrid(grid, 0.014, 1, 0.006, 0.026);
   /* USER CODE END 2 */
 
   /* Infinite loop */

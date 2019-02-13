@@ -1,6 +1,6 @@
-Magnet.c:22:7:make_unit_vectors	32	static
-Magnet.c:33:6:mag_read_valueL	32	static
-Magnet.c:45:6:mag_read_valueR	32	static
-Magnet.c:16:6:read_values_to_arrays	8	static
-Magnet.c:58:6:reset_background	40	static
-Magnet.c:84:7:average	24	static
+Magnet.c:20:7:make_unit_vectors	32	static
+Magnet.c:31:6:mag_read_valueL	32	static
+Magnet.c:43:6:mag_read_valueR	32	static
+Magnet.c:14:6:read_values_to_arrays	8	static
+Magnet.c:56:6:reset_background	40	static
+Magnet.c:82:7:average	24	static
