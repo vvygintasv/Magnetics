@@ -1,2 +1,3 @@
-magnetmath.c:11:6:CreateGrid	64	static
-magnetmath.c:41:5:CheckGrid	72	static
+magnetmath.c:11:6:CalculateMagnetEquation	56	static
+magnetmath.c:36:6:CompareSensorValue	56	static
+magnetmath.c:54:6:CreateTable	128	static
