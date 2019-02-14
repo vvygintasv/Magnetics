@@ -36,9 +36,9 @@ void CalculateMagnetEquation(double Br, double x, double y, double z, double mag
 void CompareSensorValue(double Br, double magnet_radius, double magnet_height, int field[], int min_ind[], double table[25][25][3])
 {
 	double min_diff = 99999999;
-	for(int x = -12; x < 12; x++)
+	for(int x = -12; x < 13; x++)
 	{
-		for(int y = -12; y < 12; y++)
+		for(int y = -12; y < 13; y++)
 		{
 			double difference = sqrt(pow(table[x+12][y+12][0] - field[0], 2) + pow(table[x+12][y+12][1] - field[1], 2) + pow(table[x+12][y+12][2] - field[2], 2));
 			if(difference < min_diff)
@@ -54,9 +54,9 @@ void CompareSensorValue(double Br, double magnet_radius, double magnet_height, i
 void CreateTable(double table[25][25][3], double z, double Br, double magnet_radius, double magnet_height)
 {
 	double eq_res[3];
-	for(double x = -12; x < 12; x++)
+	for(double x = -12; x < 13; x++)
 	{
-		for(double y = -12; y < 12; y++)
+		for(double y = -12; y < 13; y++)
 		{
 			CalculateMagnetEquation(Br, x/100, y/100, z, magnet_radius, magnet_height, eq_res);
 			table[(int)x+12][(int)y+12][0] = eq_res[0];

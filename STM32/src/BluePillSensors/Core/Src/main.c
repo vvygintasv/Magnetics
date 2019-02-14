@@ -125,6 +125,7 @@ int main(void)
   config();
   reset_background(field_L, field_R, bg_L, bg_R, 100);
   CreateTable(table, 0.05, Br, magnet_radius, magnet_height);
+
   //CreateGrid(grid, 0.014, 1, 0.006, 0.026);
   /* USER CODE END 2 */
 
