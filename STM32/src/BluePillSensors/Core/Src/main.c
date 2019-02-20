@@ -76,6 +76,7 @@ int index_L[2], index_R[2];
 double Br = 0.75;
 double magnet_height = 0.025;
 double magnet_radius = 0.006;
+double height_from_ground = 0.05;
 
 double table[25][25][3];
 /* USER CODE END PV */
@@ -124,7 +125,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   config();
   reset_background(field_L, field_R, bg_L, bg_R, 100);
-  CreateTable(table, 0.05, Br, magnet_radius, magnet_height);
+  CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
   //CreateGrid(grid, 0.014, 1, 0.006, 0.026);
   /* USER CODE END 2 */
