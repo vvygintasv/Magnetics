@@ -46,9 +46,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "MagConfig.h"
-#include "Magnet.h"
-#include "magnetmath.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -67,22 +65,15 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-/* USER CODE BEGIN PV */
-int strsum_L[20], strsum_R[20]; // array of the 20 most recent strength measurements
-int k = 0; // counter
-volatile float avgstr_L, avgstr_R; // the average magnetic field strength of the last 20 measurements
-int index_L[2], index_R[2];
-double Br = 0.75;
-double magnet_height = 0.026;
-double magnet_radius = 0.006;
-double height_from_ground = 0.05;
 
-double table[25][25][3];
+/* USER CODE BEGIN PV */
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
 void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -122,45 +113,16 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  config();
-  reset_background(field_L, field_R, bg_L, bg_R, 100);
-  CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
-  //CreateGrid(grid, 0.014, 1, 0.006, 0.026);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-while (1)
+  while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	read_values_to_arrays(field_L, field_R);
-
-	for(int i = 0; i < 3; i++)
-	{
-	  if(field_L[i] > 65536 / 2) field_L[i] = field_L[i] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
-	  if(field_R[i] > 65536 / 2) field_R[i] = field_R[i] - 65536; //changes the representation of negative magnetic fields to negative values starting at zero
-	  field_L[i] -= bg_L[i]; //accounts for the background magnetic fields
-	  field_R[i] -= bg_R[i];
-	}
-
-	str_L = make_unit_vectors(field_L, vect_L); //creates array of directional unit vectors and outputs strength of magnetic field
-	str_R = make_unit_vectors(field_R, vect_R);
-
-	strsum_L[k] = str_L; //adds strength of magnetic field to array for average calculation
-	strsum_R[k] = str_R;
-	k++;
-	if(k >= 20) k = 0;
-
-	avgstr_L = average(strsum_L, 20); //calculates the average of the most recent 20 field strength measurements
-	avgstr_R = average(strsum_R, 20);
-
-	CompareSensorValue(Br, magnet_radius, magnet_height, field_L, index_L, table);
-	CompareSensorValue(Br, magnet_radius, magnet_height, field_R, index_R, table);
-
-	HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
