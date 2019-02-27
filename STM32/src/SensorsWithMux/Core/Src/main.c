@@ -49,6 +49,7 @@
 #include "Magnet.h"
 #include "MagConfig.h"
 #include "magnetmath.h"
+#include "linefollow.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,6 +82,13 @@ double height_from_ground = 0.05;
 double table[21][21][3];
 
 int sensorcount = 6;
+
+volatile double error_last = 0;
+volatile double error_integ = 0;
+
+double Kp = 0;
+double Ki = 0;
+double Kd = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -155,6 +163,8 @@ int main(void)
 		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
 	  }
 	  HAL_Delay(1);
+
+
   }
   /* USER CODE END 3 */
 }

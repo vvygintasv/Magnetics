@@ -79,7 +79,7 @@ void SelectSensor(int sensor)
 {
 	for(int i = 0; i < 8; i++)
 	{
-		if(i == sensor) AddBit(1);
+		if(i == 7 - sensor) AddBit(1);
 		else AddBit(0);
 	}
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
