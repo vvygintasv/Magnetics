@@ -46,7 +46,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Magnet.h"
+#include "MagConfig.h"
+#include "magnetmath.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -67,7 +69,18 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int strsum[6][20]; // array of the 20 most recent strength measurements
+int k = 0; // counter
+volatile float avgstr[6]; // the average magnetic field strength of the last 20 measurements
+int table_index[6][2];
+double Br = 0.75;
+double magnet_height = 0.026;
+double magnet_radius = 0.006;
+double height_from_ground = 0.05;
 
+double table[21][21][3];
+
+int sensorcount = 6;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,16 +126,35 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+  config();
+  reset_background(field, bg, 100, sensorcount);
+  CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+	    /* USER CODE BEGIN 3 */
+	  for(int i = 0; i < sensorcount; i++)
+	  {
+		  mag_read_value(field, i+1);
+		  for(int j = 0; j < 3; j++)
+		  {
+		    if(field[i][j] > 65536 / 2) field[i][j] = field[i][j] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
+                                                                          //changes the representation of negative magnetic fields to negative values starting at zero
+		    field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
+		  }
+		  str[i] = make_unit_vectors(field[i], vect[i]); //creates array of directional unit vectors and outputs strength of magnetic field
+		  strsum[i][k] = str[i]; //adds strength of magnetic field to array for average calculation
+		  k++;
+		  if(k >= 20) k = 0;
+		  avgstr[i] = average(strsum[i], 20); //calculates the average of the most recent 20 field strength measurements
+		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+	  }
+	  HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
