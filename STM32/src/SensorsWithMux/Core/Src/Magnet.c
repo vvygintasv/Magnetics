@@ -77,6 +77,8 @@ float average(int array[], int k)
 
 void SelectSensor(int sensor)
 {
+	HAL_GPIO_WritePin(SR_SIGNAL_GPIO_Port, SR_SIGNAL_Pin, GPIO_PIN_RESET);
+	HAL_Delay(1);
 	for(int i = 0; i < 8; i++)
 	{
 		if(i == 7 - sensor) AddBit(1);

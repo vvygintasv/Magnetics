@@ -26,3 +26,4 @@ double CalcPID(int current_magnet[][2], int expected_magnet[][2], double Kp, dou
 }
 
 /* USER CODE END Includes */
+

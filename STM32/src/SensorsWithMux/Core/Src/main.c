@@ -163,8 +163,6 @@ int main(void)
 		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
 	  }
 	  HAL_Delay(1);
-
-
   }
   /* USER CODE END 3 */
 }
