@@ -137,6 +137,9 @@ int main(void)
   config();
   reset_background(field, bg, 100, sensorcount);
   CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
+
+  HAL_GPIO_WritePin(SR_NSCLR_GPIO_Port, SR_NSCLR_Pin, GPIO_PIN_SET);
+  HAL_Delay(1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
