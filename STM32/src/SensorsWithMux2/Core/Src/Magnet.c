@@ -77,36 +77,16 @@ float average(int array[], int k)
 
 void SelectSensor(int sensor)
 {
-
-	//Set of shift register commands to clear current output
-	HAL_GPIO_WritePin(SR_NSCLR_GPIO_Port, SR_NSCLR_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_NSCLR_GPIO_Port, SR_NSCLR_Pin, GPIO_PIN_SET);
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
-	//End of clearing commands
-
-
-	HAL_GPIO_WritePin(SR_SIGNAL_GPIO_Port, SR_SIGNAL_Pin, GPIO_PIN_RESET); //Puts the signal to low
-	HAL_Delay(1);
-	for(int i = 0; i < 8; i++)
-	{
-		if(i == 7 - sensor) AddBit(1);
-		else AddBit(0);
-	}
+	uint8_t buffer;
+	buffer = 0x01 << sensor;
+	HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET); //Turns off the pin RCK pin
 	HAL_Delay(1);
 }
 
+/*
 void AddBit(int i)
 {
 	if(i == 1)
@@ -124,5 +104,5 @@ void AddBit(int i)
 		HAL_Delay(1);
 	}
 }
-
+*/
 /* USER CODE END Includes */
