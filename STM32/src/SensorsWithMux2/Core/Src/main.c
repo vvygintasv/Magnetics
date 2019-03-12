@@ -147,11 +147,13 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   config();
-  reset_background(field, bg, 100, sensorcount);
-  CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
+ // reset_background(field, bg, 100, sensorcount);
+ // CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
   HAL_Delay(1);
+  uint8_t bit;
   uint8_t buffer;
+  //uint8_t buffer1[2];
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -159,73 +161,51 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  bit = 0x01;
     /* USER CODE BEGIN 3 */
-	  /*
-	  buffer = 0x02;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  buffer = 0x04;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  buffer = 0x08;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  buffer = 0x10;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  buffer = 0x20;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-
-	  buffer = 0x40;
-	  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
-	  HAL_Delay(1);
-	  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(1000);
-	  */
-	  for(int i = 0; i < sensorcount; i++)
+	  while(bit <= 0x80)
 	  {
-		  mag_read_value(field, i+1);
+		  buffer = bit;
+
+		  HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
+		  HAL_Delay(1);
+		  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET);
+		  HAL_Delay(1);
+		  HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET);
+		  HAL_Delay(100);
+
+		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
+		  HAL_Delay(500);
+		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
+		  HAL_Delay(100);
+		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
+		  HAL_Delay(500);
+		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
+		  HAL_Delay(100);
+
+		  if(bit == 0x80) break;
+		  else bit = bit << 1;
+	  }
+
+	  /*
+	  for(int i = 0; i < 8; i++)
+	  {
+		  mag_read_value(field, i);
 		  for(int j = 0; j < 3; j++)
 		  {
 		    if(field[i][j] > 65536 / 2) field[i][j] = field[i][j] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
                                                                           //changes the representation of negative magnetic fields to negative values starting at zero
-		    field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
+		    //field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
 		  }
 		  str[i] = make_unit_vectors(field[i], vect[i]); //creates array of directional unit vectors and outputs strength of magnetic field
 		  strsum[i][k] = str[i]; //adds strength of magnetic field to array for average calculation
 		  k++;
 		  if(k >= 20) k = 0;
 		  avgstr[i] = average(strsum[i], 20); //calculates the average of the most recent 20 field strength measurements
-		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+		  //CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+
 	  }
+	  */
 	  HAL_Delay(1);
   }
   /* USER CODE END 3 */

@@ -98,8 +98,8 @@ void Error_Handler(void);
 #define SR_RCK_GPIO_Port GPIOB
 #define SR_NG_Pin GPIO_PIN_8
 #define SR_NG_GPIO_Port GPIOB
-#define SR_SIGNAL_Pin GPIO_PIN_9
-#define SR_SIGNAL_GPIO_Port GPIOB
+#define SDA_Test_Pin GPIO_PIN_9
+#define SDA_Test_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -15,7 +15,7 @@
 #include "MagConfig.h"
 #include "spi.h"
 
-int field[6][3];
+int field[8][3];
 float vect[6][3];
 float str[6];
 int bg[6][3];
