@@ -148,7 +148,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   config();
   reset_background(field, bg, 10, sensorcount);
- // CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
+  CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
   HAL_Delay(1);
   //uint8_t bit;
@@ -205,21 +205,22 @@ int main(void)
 	  //CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
 */
 
-	  for(int i = 0; i < sensorcount; i++)
+	  for(int i = 0; i < 2; i++)
 	  {
 		  mag_read_value(field, i+1);
 		  for(int j = 0; j < 3; j++)
 		  {
 		    if(field[i][j] > 65536 / 2) field[i][j] = field[i][j] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
                                                                           //changes the representation of negative magnetic fields to negative values starting at zero
-		    //field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
+		    field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
 		  }
 		  str[i] = make_unit_vectors(field[i], vect[i]); //creates array of directional unit vectors and outputs strength of magnetic field
 		  strsum[i][k] = str[i]; //adds strength of magnetic field to array for average calculation
 		  k++;
 		  if(k >= 20) k = 0;
 		  avgstr[i] = average(strsum[i], 20); //calculates the average of the most recent 20 field strength measurements
-		  //CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+		  HAL_Delay(1);
 
 	  }
 

@@ -16,7 +16,7 @@
 void CreateTable(double table[21][21][3], double z, double Br, double magnet_radius, double magnet_height); //Creates a table of expected sensor data, based on relative location of magnet and sensor
 
 void CalculateMagnetEquation(double Br, double x, double y, double z, double magnet_radius, double magnet_height, double answer[]);
-void CompareSensorValue(double Br, double magnet_radius, double magnet_height, int field[], int min_ind[], double table[21][21][3]);  //Finds table point with smallest difference from sensor data
+void CompareSensorValue(double Br, double magnet_radius, double magnet_height, volatile int field[], int min_ind[], double table[21][21][3]);  //Finds table point with smallest difference from sensor data
 
 //void CompareSensorValue(double Br, double magnet_radius, double magnet_height, int field[], double min_ind[], double equation_result[]);
 
