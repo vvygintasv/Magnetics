@@ -100,7 +100,7 @@
 #define MAG3110_Y_AXIS 3
 #define MAG3110_Z_AXIS 5
 
-void config(); //Configures Magnetometer
+void config(int sensorcount); //Configures Magnetometer
 
 
 

@@ -91,7 +91,24 @@ float average(int array[], int k)
 void SelectSensor(int sensor)
 {
 	uint8_t buffer;
-	buffer = 0x01 << sensor;
+	int which_bit;
+	int which_register;
+	which_bit = sensor % 8;
+	which_register = (sensor - which_bit) / 8;
+	if(which_register > 0)
+	{
+		for(int i = 0; i < which_register; i++)
+		{
+			buffer = 0x00;
+			HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
+			HAL_Delay(1);
+			HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others
+			HAL_Delay(1);
+			HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET); //Turns off the pin RCK pin
+			HAL_Delay(1);
+		}
+	}
+	buffer = 0x01 << which_bit;
 	HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others

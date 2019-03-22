@@ -14,18 +14,18 @@ uint8_t bufferread2[2];
 uint8_t config_regadd;
 uint8_t config_data;
 
-void config(void) {
+void config(int sensorcount) {
 	/* SetUp measurement mode -------------------------------------------*/
 	//for(int i = 0; i < 6; i++)
-	for(int i = 0; i < 6; i++)
+	for(int i = 0; i < sensorcount; i++)
 	{
-		SelectSensor(i+1);
+		SelectSensor(i);
 		//SelectSensor(i+1);
 		bufferread1[0] = 0;
 		bufferread1[1] = 0;
 		bufferread2[0] = 0;
 		bufferread2[1] = 0;
-		HAL_Delay(15);
+
 		bufferconf[0] = 0x11; // Select mode register
 		bufferconf[1] = 0x80; //Continuous measurement mode
 
@@ -36,7 +36,7 @@ void config(void) {
 		bufferconf[1] = 0x1; //Continuous measurement mode
 		HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 2, 100);
 		HAL_Delay(15);
-
+/*
 		bufferconf[0] = 0x07;
 		bufferconf[1] = 0x00;
 		//writes the address of the WHO_AM_I register as a test
@@ -46,6 +46,7 @@ void config(void) {
 		HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100); //if I2C communication is working properly, the read byte must always be 0xC4
 
 		HAL_Delay(15);
+*/
 	}
 
 

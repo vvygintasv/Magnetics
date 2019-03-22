@@ -146,7 +146,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  config();
+  config(sensorcount);
   reset_background(field, bg, 10, sensorcount);
   CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
