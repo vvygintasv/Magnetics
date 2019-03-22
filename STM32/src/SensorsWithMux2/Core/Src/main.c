@@ -205,7 +205,7 @@ int main(void)
 	  //CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
 */
 
-	  for(int i = 0; i < 2; i++)
+	  for(int i = 0; i < sensorcount; i++)
 	  {
 		  mag_read_value(field, i+1);
 		  for(int j = 0; j < 3; j++)
