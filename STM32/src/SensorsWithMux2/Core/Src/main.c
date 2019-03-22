@@ -81,9 +81,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-int strsum[6][20]; // array of the 20 most recent strength measurements
-int k = 0; // counter
-volatile float avgstr[6]; // the average magnetic field strength of the last 20 measurements
+
+//int strsum[6][20]; // array of the 20 most recent strength measurements
+//int k = 0; // counter
+//volatile float avgstr[6]; // the average magnetic field strength of the last 20 measurements
 int table_index[6][2];
 double Br = 0.75;
 double magnet_height = 0.026;
@@ -100,6 +101,7 @@ volatile double error_integ = 0;
 double Kp = 0;
 double Ki = 0;
 double Kd = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -146,8 +148,13 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  config(sensorcount);
-  reset_background(field, bg, 10, sensorcount);
+  config(sensorcount); //Sends configuration information to every sensor
+  reset_background(field, bg, 10, sensorcount); //Takes into account the sensor readings at their starting position and orientation and considers them to be the real zero point
+
+  //Creates a 3D table of expected magnetic sensor values at certain magnet positions relative to the sensor
+  //The function requires specific predetermined information of what kind of magnet is expected.
+  //Required information: radius of the magnet, height of the magnet (its assumed it is cylindrical), and magnetic strength of the magnet, provided in the form of Br - residual inductio (or magnetic flux)
+  //The Br of a magnet depends mainly on its material.
   CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
   HAL_Delay(1);
@@ -170,12 +177,15 @@ int main(void)
 		    field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
 		  }
 
+		  //Unnecessary information in current implementation, but may be relevant in later code
+		  /*
 		  str[i] = make_unit_vectors(field[i], vect[i]); //creates array of directional unit vectors and outputs strength of magnetic field
 
 		  strsum[i][k] = str[i]; //adds strength of magnetic field to array for average calculation
 		  k++;
 		  if(k >= 20) k = 0;
 		  avgstr[i] = average(strsum[i], 20); //calculates the average of the most recent 20 field strength measurements
+		  */
 
 		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
 

@@ -11,6 +11,8 @@
 uint8_t bufferW[6];
 uint8_t bufferR[6];
 
+//Unused in current implementation but may be relevant later
+/*
 float make_unit_vectors(volatile int field[3], float unit_vect[])
 {
 	float vect_length = 0;
@@ -21,6 +23,7 @@ float make_unit_vectors(volatile int field[3], float unit_vect[])
 
 	return vect_length;
 }
+*/
 
 void mag_read_value(volatile int field[6][3], int sensor)
 {
@@ -80,8 +83,8 @@ void SelectSensor(int sensor)
 	uint8_t buffer;
 	int which_bit;
 	int which_register;
-	which_bit = sensor % 8;
-	which_register = (sensor - which_bit) / 8;
+	which_bit = sensor % 8; //Finds remainder of division, which should correspond to the desired bit, ignoring the byte
+	which_register = (sensor - which_bit) / 8; //Finds the division after removing the remainder, indicates which byte contains the only "1" bit
 	if(which_register > 0)
 	{
 		for(int i = 0; i < which_register; i++)
@@ -96,7 +99,7 @@ void SelectSensor(int sensor)
 
 void SendByteToSR(uint8_t buffer)
 {
-	HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
+	HAL_SPI_Transmit(&hspi1, &buffer, 1, 1); //Writes the buffer byte into the shift register using its serial input
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others
 	HAL_Delay(1);

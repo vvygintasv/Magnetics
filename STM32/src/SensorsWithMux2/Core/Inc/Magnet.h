@@ -16,12 +16,12 @@
 #include "spi.h"
 
 volatile int field[6][3];
-float vect[6][3];
+//float vect[6][3];
 float str[6];
 int bg[6][3];
 unsigned char buffer[6];
 
-float make_unit_vectors(volatile int field[3], float unit_vect[]); //Turns the magnetic field readings into directional unit vectors and outputs the field strength
+//float make_unit_vectors(volatile int field[3], float unit_vect[]); //Turns the magnetic field readings into directional unit vectors and outputs the field strength
 
 void reset_background(volatile int field[6][3], int bg[][3], int end_of_startup, int sensorcount); //Startup function which takes the first 100 values and takes their average as the new zero
 
