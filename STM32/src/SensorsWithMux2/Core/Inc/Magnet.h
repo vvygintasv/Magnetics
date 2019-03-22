@@ -30,7 +30,8 @@ void mag_read_value(volatile int field[6][3], int sensor); //Calls HAL functions
 float average(int array[], int k); //Outputs the average of an array thats size k
 
 void SelectSensor(int sensor);
-void AddBit(int i);
+
+void SendByteToSR(uint8_t buffer);
 
 #endif /* INC_MAGNET_H_ */
 /* USER CODE END Includes */

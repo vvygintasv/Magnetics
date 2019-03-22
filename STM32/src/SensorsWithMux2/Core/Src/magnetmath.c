@@ -69,48 +69,4 @@ void CreateTable(double table[21][21][3], double z, double Br, double magnet_rad
 	}
 }
 
-/*
-void CompareSensorValue(double Br, double magnet_radius, double magnet_height, int field[], double min_ind[], double equation_result[])
-{
-	double min_diff = 99999999;
-	for(double x = -25; x < 26; x++)
-	{
-		for(double y = -25; y < 26; y++)
-		{
-			CalculateMagnetEquation(Br, x/200, y/200, 0.05, magnet_radius, magnet_height, equation_result);
-			double difference = sqrt(pow(equation_result[0] - field[0], 2) + pow(equation_result[1] - field[1], 2) + pow(equation_result[2] - field[2], 2));
-			if(difference < min_diff)
-			{
-				min_diff = difference;
-				min_ind[0] = x;
-				min_ind[1] = y;
-			}
-		}
-	}
-}
-*/
-
-/*
-int CheckGrid(int grid_x[], int grid_y[], int grid_z[], int field[])
-{
-	int min_diff = 999999;
-	float str_field = sqrt(pow(field[0], 2) + pow(field[1], 2) + pow(field[2], 2));
-	int i = 0;
-	int grid_index = 0;
-	for(int x = 0; x < 21; x++)
-	{
-		for(int y = 0; y < 21; y++)
-		{
-			float str_grid = sqrt(pow(grid_x[i], 2) + pow(grid_y[i], 2) + pow(grid_z[i], 2));
-			if(abs(str_grid - str_field) < min_diff)
-			{
-				min_diff = abs(str_grid - str_field);
-				grid_index = i;
-			}
-			i++;
-		}
-	}
-	return grid_index;
-}
-*/
 /* USER CODE END Includes */

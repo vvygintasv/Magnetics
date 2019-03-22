@@ -34,20 +34,7 @@ void mag_read_value(volatile int field[6][3], int sensor)
     field[sensor-1][1] = (bufferR[3]|(bufferR[2] << 8)); //buffer[2] is MSB of y, buffer[3] is LSB of y
     field[sensor-1][2] = (bufferR[5]|(bufferR[4] << 8)); //buffer[4] is MSB of z, buffer[5] is LSB of z
 }
-/*
-void mag_read_value(int field[][3], int sensor)
-{
-	SelectSensor(sensor);
-    bufferW[0] = 0x01; //address of registry containing the first measured value
-    HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferW, 1, 100);  //writes the register address into the slave device
-    HAL_Delay(1);
-    HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferR, 6, 100); //reads 6 bytes of data from the slave device, starting at the registry which was previously written
-    HAL_Delay(1);
-    field[sensor-1][0] = (bufferR[1]|(bufferR[0] << 8)); //buffer[0] is MSB of x, buffer[1] is LSB of x
-    field[sensor-1][1] = (bufferR[3]|(bufferR[2] << 8)); //buffer[2] is MSB of y, buffer[3] is LSB of y
-    field[sensor-1][2] = (bufferR[5]|(bufferR[4] << 8)); //buffer[4] is MSB of z, buffer[5] is LSB of z
-}
-*/
+
 void reset_background(volatile int field[6][3], int bg[][3], int end_of_startup, int sensorcount)
 {
 	for(int j = 0; j <= end_of_startup; j++)
@@ -100,15 +87,15 @@ void SelectSensor(int sensor)
 		for(int i = 0; i < which_register; i++)
 		{
 			buffer = 0x00;
-			HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
-			HAL_Delay(1);
-			HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others
-			HAL_Delay(1);
-			HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_RESET); //Turns off the pin RCK pin
-			HAL_Delay(1);
+			SendByteToSR(buffer);
 		}
 	}
 	buffer = 0x01 << which_bit;
+	SendByteToSR(buffer);
+}
+
+void SendByteToSR(uint8_t buffer)
+{
 	HAL_SPI_Transmit(&hspi1, &buffer, 1, 1);
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(SR_RCK_GPIO_Port, SR_RCK_Pin, GPIO_PIN_SET); //Sends the 8 written bits to signal to the output of the shift register, closing the one transistor thats needed, opening all others
@@ -117,23 +104,4 @@ void SelectSensor(int sensor)
 	HAL_Delay(1);
 }
 
-/*
-void AddBit(int i)
-{
-	if(i == 1)
-	{
-		HAL_GPIO_WritePin(SR_SIGNAL_GPIO_Port, SR_SIGNAL_Pin, GPIO_PIN_SET); //Adds a 1 in the one spot that needs it
-		HAL_Delay(1);
-	}
-	HAL_GPIO_WritePin(SR_SCK_GPIO_Port, SR_SCK_Pin, GPIO_PIN_SET); //Adds the current state of the signal pin as the next bit to the shift register
-	HAL_Delay(1);
-	HAL_GPIO_WritePin(SR_SCK_GPIO_Port, SR_SCK_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
-	if(i == 1)
-	{
-		HAL_GPIO_WritePin(SR_SIGNAL_GPIO_Port, SR_SIGNAL_Pin, GPIO_PIN_RESET);
-		HAL_Delay(1);
-	}
-}
-*/
 /* USER CODE END Includes */

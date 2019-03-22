@@ -16,7 +16,6 @@ uint8_t config_data;
 
 void config(int sensorcount) {
 	/* SetUp measurement mode -------------------------------------------*/
-	//for(int i = 0; i < 6; i++)
 	for(int i = 0; i < sensorcount; i++)
 	{
 		SelectSensor(i);
@@ -36,17 +35,6 @@ void config(int sensorcount) {
 		bufferconf[1] = 0x1; //Continuous measurement mode
 		HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 2, 100);
 		HAL_Delay(15);
-/*
-		bufferconf[0] = 0x07;
-		bufferconf[1] = 0x00;
-		//writes the address of the WHO_AM_I register as a test
-		HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 1, 100);
-
-		HAL_Delay(10);
-		HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferread1, 1, 100); //if I2C communication is working properly, the read byte must always be 0xC4
-
-		HAL_Delay(15);
-*/
 	}
 
 

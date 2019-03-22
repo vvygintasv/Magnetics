@@ -163,67 +163,28 @@ int main(void)
     /* USER CODE END WHILE */
 	  //bit = 0x01;
     /* USER CODE BEGIN 3 */
-/*
-	  int i = 0;
-	  while(i < sensorcount)
-	  {
-		  SelectSensor(i+1);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
-		  HAL_Delay(500);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
-		  HAL_Delay(100);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
-		  HAL_Delay(500);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
-		  HAL_Delay(100);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
-		  HAL_Delay(500);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
-		  HAL_Delay(100);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 1);
-		  HAL_Delay(500);
-		  HAL_GPIO_WritePin(SDA_Test_GPIO_Port, SDA_Test_Pin, 0);
-		  HAL_Delay(100);
-		  i++;
-
-		  if(i == sensorcount) break;
-	  }
-	  */
-	  /*
-	  mag_read_value(field, 6);
-	  for(int j = 0; j < 3; j++)
-	  {
-	    if(field[5][j] > 65536 / 2) field[5][j] = field[5][j] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
-                                                                      //changes the representation of negative magnetic fields to negative values starting at zero
-	    //field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
-	  }
-	  str[0] = make_unit_vectors(field[5], vect[0]); //creates array of directional unit vectors and outputs strength of magnetic field
-	  strsum[0][k] = str[0]; //adds strength of magnetic field to array for average calculation
-	  k++;
-	  if(k >= 20) k = 0;
-	  avgstr[0] = average(strsum[0], 20); //calculates the average of the most recent 20 field strength measurements
-	  //CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
-*/
-
 	  for(int i = 0; i < sensorcount; i++)
 	  {
 		  mag_read_value(field, i+1);
+
 		  for(int j = 0; j < 3; j++)
 		  {
 		    if(field[i][j] > 65536 / 2) field[i][j] = field[i][j] - 65536; //by default, negative magnetic fields are represented as decreasing from maximum 16 bit number 65535
                                                                           //changes the representation of negative magnetic fields to negative values starting at zero
 		    field[i][j] -= bg[i][j]; //accounts for the background magnetic fields
 		  }
+
 		  str[i] = make_unit_vectors(field[i], vect[i]); //creates array of directional unit vectors and outputs strength of magnetic field
+
 		  strsum[i][k] = str[i]; //adds strength of magnetic field to array for average calculation
 		  k++;
 		  if(k >= 20) k = 0;
 		  avgstr[i] = average(strsum[i], 20); //calculates the average of the most recent 20 field strength measurements
+
 		  CompareSensorValue(Br, magnet_radius, magnet_height, field[i], table_index[i], table);
+
 		  HAL_Delay(1);
-
 	  }
-
 	  HAL_Delay(1);
   }
   /* USER CODE END 3 */
