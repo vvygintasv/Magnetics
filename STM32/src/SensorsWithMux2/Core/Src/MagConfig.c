@@ -36,8 +36,6 @@ void config(int sensorcount) {
 		HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 2, 100);
 		HAL_Delay(15);
 	}
-
-
 }
 
 /* USER CODE END Includes */

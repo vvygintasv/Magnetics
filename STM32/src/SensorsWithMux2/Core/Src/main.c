@@ -151,17 +151,13 @@ int main(void)
   CreateTable(table, height_from_ground, Br, magnet_radius, magnet_height);
 
   HAL_Delay(1);
-  //uint8_t bit;
-  //uint8_t buffer;
-  //uint8_t buffer1[2];
-  /* USER CODE END 2 */
 
+  /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	  //bit = 0x01;
     /* USER CODE BEGIN 3 */
 	  for(int i = 0; i < sensorcount; i++)
 	  {

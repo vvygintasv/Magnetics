@@ -30,7 +30,6 @@ void CalculateMagnetEquation(double Br, double x, double y, double z, double mag
 	answer[0] = e1 * ((e2_x / e3) - (e4_x / e5)) * 10000000;
 	answer[1] = e1 * ((e2_y / e3) - (e4_y / e5)) * 10000000;
 	answer[2] = e1 * ((e2_z / e3) - (e4_z / e5)) * 10000000;
-	//int i;
 }
 
 void CompareSensorValue(double Br, double magnet_radius, double magnet_height, volatile int field[], int min_ind[], double table[21][21][3]) //Finds table point with smallest difference from sensor data
