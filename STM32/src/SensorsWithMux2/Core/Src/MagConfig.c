@@ -29,6 +29,7 @@ void config(int sensorcount) {
 		bufferconf[1] = 0x80; //Continuous measurement mode
 
 		HAL_I2C_Master_Transmit(&hi2c1, MAG_ADDR, bufferconf, 2, 100);
+
 		HAL_Delay(15);
 
 		bufferconf[0] = 0x10; // Select mode register

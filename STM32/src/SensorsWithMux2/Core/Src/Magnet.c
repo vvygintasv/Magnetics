@@ -33,9 +33,9 @@ void mag_read_value(volatile int field[6][3], int sensor)
     HAL_Delay(1);
     HAL_I2C_Master_Receive(&hi2c1, MAG_ADDR, (uint8_t*)&bufferR, 6, 100); //reads 6 bytes of data from the slave device, starting at the registry which was previously written
     HAL_Delay(1);
-    field[sensor-1][0] = (bufferR[1]|(bufferR[0] << 8)); //buffer[0] is MSB of x, buffer[1] is LSB of x
-    field[sensor-1][1] = (bufferR[3]|(bufferR[2] << 8)); //buffer[2] is MSB of y, buffer[3] is LSB of y
-    field[sensor-1][2] = (bufferR[5]|(bufferR[4] << 8)); //buffer[4] is MSB of z, buffer[5] is LSB of z
+    field[sensor][0] = (bufferR[1]|(bufferR[0] << 8)); //buffer[0] is MSB of x, buffer[1] is LSB of x
+    field[sensor][1] = (bufferR[3]|(bufferR[2] << 8)); //buffer[2] is MSB of y, buffer[3] is LSB of y
+    field[sensor][2] = (bufferR[5]|(bufferR[4] << 8)); //buffer[4] is MSB of z, buffer[5] is LSB of z
 }
 
 void reset_background(volatile int field[6][3], int bg[][3], int end_of_startup, int sensorcount)

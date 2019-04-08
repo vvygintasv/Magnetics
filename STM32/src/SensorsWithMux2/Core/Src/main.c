@@ -93,7 +93,7 @@ double height_from_ground = 0.05;
 
 double table[21][21][3];
 
-int sensorcount = 6;
+int sensorcount = 8;
 
 volatile double error_last = 0;
 volatile double error_integ = 0;
@@ -168,7 +168,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  for(int i = 0; i < sensorcount; i++)
 	  {
-		  mag_read_value(field, i+1);
+		  mag_read_value(field, i);
 
 		  for(int j = 0; j < 3; j++)
 		  {
